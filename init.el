@@ -11,7 +11,29 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(doom-dracula))
  '(custom-safe-themes
-   '("5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
+   '("268ffd888ba4ffacb351b8860c8c1565b31613ecdd8908675d571855e270a12b"
+     "088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
+     "a368631abdadffb6882f9994637d7216167912311447f1ec02f9dc58e9cc62a9"
+     "fffef514346b2a43900e1c7ea2bc7d84cbdd4aa66c1b51946aade4b8d343b55a"
+     "b7a09eb77a1e9b98cafba8ef1bd58871f91958538f6671b22976ea38c2580755"
+     "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8"
+     "9b9d7a851a8e26f294e778e02c8df25c8a3b15170e6f9fd6965ac5f2544ef2a9"
+     "6963de2ec3f8313bb95505f96bf0cf2025e7b07cefdb93e3d2e348720d401425"
+     "e8ceeba381ba723b59a9abc4961f41583112fc7dc0e886d9fc36fa1dc37b4079"
+     "e4a702e262c3e3501dfe25091621fe12cd63c7845221687e36a79e17cf3a67e0"
+     "22a0d47fe2e6159e2f15449fcb90bbf2fe1940b185ff143995cc604ead1ea171"
+     "e4d4cc443964b8a64defc06de3edb2363f7cb1b3c3ae2272b2c1487f626e4318"
+     "4d714a034e7747598869bef1104e96336a71c3d141fa58618e4606a27507db4c"
+     "19d62171e83f2d4d6f7c31fc0a6f437e8cec4543234f0548bad5d49be8e344cd"
+     "f053f92735d6d238461da8512b9c071a5ce3b9d972501f7a5e6682a90bf29725"
+     "2f7fa7a92119d9ed63703d12723937e8ba87b6f3876c33d237619ccbd60c96b9"
+     "77fff78cc13a2ff41ad0a8ba2f09e8efd3c7e16be20725606c095f9a19c24d3d"
+     "0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
+     "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700"
+     "d97ac0baa0b67be4f7523795621ea5096939a47e8b46378f79e78846e0e4ad3d"
+     "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
+     "e8bd9bbf6506afca133125b0be48b1f033b1c8647c628652ab7a2fe065c10ef0"
+     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      "d5fd482fcb0fe42e849caba275a01d4925e422963d1cd165565b31d3f4189c87"
      "014cb63097fc7dbda3edf53eb09802237961cbb4c9e9abd705f23b86511b0a69"
      "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
@@ -21,10 +43,11 @@
  '(package-selected-packages
    '(cider cider-eval-sexp-fu clj-refactor clojure-snippets
 	   clojure-ts-mode company dashboard doom-modeline doom-themes
-	   flycheck gruvbox-theme lsp-mode lsp-treemacs magit prettier
-	   rainbow-delimiters smartparens spacemacs-theme
-	   transpose-frame tree-sitter treemacs treemacs-all-the-icons
-	   treemacs-icons-dired treemacs-nerd-icons)))
+	   flycheck gruvbox-theme hugsql-ghosts lsp-mode lsp-treemacs
+	   magit prettier rainbow-delimiters smartparens
+	   spacemacs-theme transpose-frame tree-sitter treemacs
+	   treemacs-all-the-icons treemacs-icons-dired
+	   treemacs-nerd-icons which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -56,6 +79,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  
+
+;; Maximize on startup
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;; Enable company-mode globally
 (add-hook 'after-init-hook 'global-company-mode)
@@ -183,3 +209,4 @@
 
 ;; require or autoload smartparens
 (add-hook 'clojure-ts-mode-hook #'smartparens-strict-mode)
+
