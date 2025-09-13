@@ -57,7 +57,7 @@
 ;;; ---------------------------------------------------------------------------
 
 (require 'company)
-(setq company-idle-delay 0.05          ; set to 0.2 if too aggressive
+(setq company-idle-delay 0.15          ; set to 0.2 if too aggressive
       company-minimum-prefix-length 1
       company-tooltip-align-annotations t
       company-selection-wrap-around t
@@ -180,9 +180,39 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-monokai-pro))
+ '(custom-enabled-themes '(doom-vibrant))
  '(custom-safe-themes
-   '("3f24dd8f542f4aa8186a41d5770eb383f446d7228cd7a3413b9f5e0ec0d5f3c0"
+   '("f9d423fcd4581f368b08c720f04d206ee80b37bfb314fa37e279f554b6f415e9"
+     "b9f44212b4be6f0466811c5d8a297dda3c40dbf4c4cfd97c1686fceb2043b617"
+     "21d2bf8d4d1df4859ff94422b5e41f6f2eeff14dd12f01428fa3cb4cb50ea0fb"
+     "452068f2985179294c73c5964c730a10e62164deed004a8ab68a5d778a2581da"
+     "f4d1b183465f2d29b7a2e9dbe87ccc20598e79738e5d29fc52ec8fb8c576fcfd"
+     "4990532659bb6a285fee01ede3dfa1b1bdf302c5c3c8de9fad9b6bc63a9252f7"
+     "268ffd888ba4ffacb351b8860c8c1565b31613ecdd8908675d571855e270a12b"
+     "b754d3a03c34cfba9ad7991380d26984ebd0761925773530e24d8dd8b6894738"
+     "b7a09eb77a1e9b98cafba8ef1bd58871f91958538f6671b22976ea38c2580755"
+     "dfb1c8b5bfa040b042b4ef660d0aab48ef2e89ee719a1f24a4629a0c5ed769e8"
+     "02d422e5b99f54bd4516d4157060b874d14552fe613ea7047c4a5cfa1288cf4f"
+     "b9761a2e568bee658e0ff723dd620d844172943eb5ec4053e2b199c59e0bcc22"
+     "dd4582661a1c6b865a33b89312c97a13a3885dc95992e2e5fc57456b4c545176"
+     "599f72b66933ea8ba6fce3ae9e5e0b4e00311c2cbf01a6f46ac789227803dd96"
+     "456697e914823ee45365b843c89fbc79191fdbaff471b29aad9dcbe0ee1d5641"
+     "f64189544da6f16bab285747d04a92bd57c7e7813d8c24c30f382f087d460a33"
+     "921f165deb8030167d44eaa82e85fcef0254b212439b550a9b6c924f281b5695"
+     "2ab8cb6d21d3aa5b821fa638c118892049796d693d1e6cd88cb0d3d7c3ed07fc"
+     "a6920ee8b55c441ada9a19a44e9048be3bfb1338d06fc41bce3819ac22e4b5a1"
+     "7ec8fd456c0c117c99e3a3b16aaf09ed3fb91879f6601b1ea0eeaee9c6def5d9"
+     "0d2c5679b6d087686dcfd4d7e57ed8e8aedcccc7f1a478cd69704c02e4ee36fe"
+     "93011fe35859772a6766df8a4be817add8bfe105246173206478a0706f88b33d"
+     "f253a920e076213277eb4cbbdf3ef2062e018016018a941df6931b995c6ff6f6"
+     "6963de2ec3f8313bb95505f96bf0cf2025e7b07cefdb93e3d2e348720d401425"
+     "13096a9a6e75c7330c1bc500f30a8f4407bd618431c94aeab55c9855731a95e1"
+     "83550d0386203f010fa42ad1af064a766cfec06fc2f42eb4f2d89ab646f3ac01"
+     "014cb63097fc7dbda3edf53eb09802237961cbb4c9e9abd705f23b86511b0a69"
+     "b5fd9c7429d52190235f2383e47d340d7ff769f141cd8f9e7a4629a81abc6b19"
+     "5244ba0273a952a536e07abaad1fdf7c90d7ebb3647f36269c23bfd1cf20b0b8"
+     "32f22d075269daabc5e661299ca9a08716aa8cda7e85310b9625c434041916af"
+     "3f24dd8f542f4aa8186a41d5770eb383f446d7228cd7a3413b9f5e0ec0d5f3c0"
      "7771c8496c10162220af0ca7b7e61459cb42d18c35ce272a63461c0fc1336015"
      "d12b1d9b0498280f60e5ec92e5ecec4b5db5370d05e787bc7cc49eae6fb07bc0"
      "0c83e0b50946e39e237769ad368a08f2cd1c854ccbcd1a01d39fdce4d6f86478"
@@ -241,11 +271,12 @@
      default))
  '(package-selected-packages
    '(ag all-the-icons-completion all-the-icons-dired
-	all-the-icons-ibuffer catppuccin-theme
-	clojure-mode-extra-font-locking clojure-snippets company
-	dashboard dashboard-hackernews dashboard-ls
-	dashboard-project-status doom-modeline doom-themes flycheck
-	german-holidays hugsql-ghosts lsp-mode paredit-menu pdf-tools
+	all-the-icons-ibuffer clojure-mode-extra-font-locking
+	clojure-snippets company dashboard dashboard-hackernews
+	dashboard-ls dashboard-project-status docker
+	docker-compose-mode dockerfile-mode doom-modeline doom-themes
+	flycheck german-holidays github-dark-vscode-theme
+	hugsql-ghosts lsp-mode paredit-menu pdf-tools
 	rainbow-delimiters smartparens spacemacs-theme transpose-frame
 	treemacs-icons-dired treemacs-magit treemacs-projectile
 	vertico)))
@@ -366,8 +397,8 @@
 ;; Simpler scheme
 (define-key smartparens-mode-map (kbd "M-<right>") 'sp-forward-slurp-sexp)
 (define-key smartparens-mode-map (kbd "M-<left>")  'sp-forward-barf-sexp)
-(define-key smartparens-mode-map (kbd "C-M-<right>") 'sp-backward-slurp-sexp)
-(define-key smartparens-mode-map (kbd "C-M-<left>")  'sp-backward-barf-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<left>") 'sp-backward-slurp-sexp)
+(define-key smartparens-mode-map (kbd "C-M-<right>")  'sp-backward-barf-sexp)
 
 (use-package consult
   :ensure t
@@ -379,3 +410,4 @@
 (use-package transpose-frame
   :ensure t
   :bind ("C-x t" . transpose-frame))
+
