@@ -1,0 +1,11 @@
+;; -*- no-byte-compile: t; lexical-binding: nil -*-
+(define-package "dashboard-ls" "20250226.929"
+  "Display files/directories in current directory on Dashboard."
+  '((emacs     "27.1")
+    (dashboard "1.2.5"))
+  :url "https://github.com/emacs-dashboard/dashboard-ls"
+  :commit "68ecc61d7302ccb71b0197096e8c9d80a03ad9b5"
+  :revdesc "68ecc61d7302"
+  :keywords '("convenience" "directory" "file" "show")
+  :authors '(("Jen-Chieh" . "jcs090218@gmail.com"))
+  :maintainers '(("Jen-Chieh" . "jcs090218@gmail.com")))
