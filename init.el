@@ -272,14 +272,14 @@
  '(package-selected-packages
    '(ag all-the-icons-completion all-the-icons-dired
 	all-the-icons-ibuffer clojure-mode-extra-font-locking
-	clojure-snippets company dashboard dashboard-hackernews
-	dashboard-ls dashboard-project-status docker
-	docker-compose-mode dockerfile-mode doom-modeline doom-themes
-	flycheck german-holidays github-dark-vscode-theme
+	clojure-snippets company counsel counsel-ag-popup dashboard
+	dashboard-hackernews dashboard-ls dashboard-project-status
+	docker docker-compose-mode dockerfile-mode doom-modeline
+	doom-themes flycheck german-holidays github-dark-vscode-theme
 	hugsql-ghosts lsp-mode paredit-menu pdf-tools
-	rainbow-delimiters smartparens spacemacs-theme transpose-frame
-	treemacs-icons-dired treemacs-magit treemacs-projectile
-	vertico)))
+	rainbow-delimiters rg ripgrep smartparens spacemacs-theme
+	transpose-frame treemacs-icons-dired treemacs-magit
+	treemacs-projectile vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

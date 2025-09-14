@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/Documents/jacek-course/cheffy/" "~/Documents/ClojureScript-Learn/understanding-re-frame/" "~/Documents/ClojureScript-Learn/learn-shadowcljs/my-project/")
+("~/Documents/jacek-course/learn-re-frame-course-files/" "~/.emacs.d/" "~/Documents/jacek-course/cheffy/" "~/Documents/ClojureScript-Learn/understanding-re-frame/" "~/Documents/ClojureScript-Learn/learn-shadowcljs/my-project/")
