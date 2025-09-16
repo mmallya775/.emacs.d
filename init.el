@@ -272,11 +272,12 @@
  '(package-selected-packages
    '(ag all-the-icons-completion all-the-icons-dired
 	all-the-icons-ibuffer clojure-mode-extra-font-locking
-	clojure-snippets company counsel counsel-ag-popup dashboard
-	dashboard-hackernews dashboard-ls dashboard-project-status
-	docker docker-compose-mode dockerfile-mode doom-modeline
-	doom-themes flycheck german-holidays github-dark-vscode-theme
-	hugsql-ghosts lsp-mode paredit-menu pdf-tools
+	clojure-snippets company consult-lsp counsel counsel-ag-popup
+	dashboard dashboard-hackernews dashboard-ls
+	dashboard-project-status docker docker-compose-mode
+	dockerfile-mode doom-modeline doom-themes flycheck
+	german-holidays github-dark-vscode-theme hugsql-ghosts
+	lsp-mode lsp-treemacs paredit-menu pdf-tools
 	rainbow-delimiters rg ripgrep smartparens spacemacs-theme
 	transpose-frame treemacs-icons-dired treemacs-magit
 	treemacs-projectile vertico)))
@@ -294,7 +295,7 @@
   :hook (after-init . doom-modeline-mode))
 
 
-(setq lsp-clojure-custom-server-command '("/opt/homebrew/bin/clojure-lsp"))
+(setq lsp-clojure-custom-server-command '("/home/linuxbrew/.linuxbrew/bin/clojure-lsp"))
 
 (setq cider-font-lock-dynamically '(macro core function var))
 
@@ -361,9 +362,9 @@
   :ensure t)
 
 ;; Make Command (⌘) the Meta key
-(setq mac-command-modifier 'meta)
+;;(setq mac-command-modifier 'meta)
 ;; Option (⌥) no longer acts as Meta
-(setq mac-option-modifier 'none)
+;;(setq mac-option-modifier 'none)
 
 
 ;; Setup dashboard

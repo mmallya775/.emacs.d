@@ -1,7 +1,3 @@
 * Default
-** understanding-re-frame
- - path :: ~/Documents/ClojureScript-Learn/understanding-re-frame
-** cheffy
- - path :: ~/Documents/jacek-course/cheffy
-** re-frame-cheffy
- - path :: ~/Documents/jacek-course/learn-re-frame-course-files/cheffy
+** scada-monitor
+ - path :: ~/scada-monitor
