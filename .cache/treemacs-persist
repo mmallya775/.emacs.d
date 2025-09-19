@@ -1,3 +1,9 @@
 * Default
 ** scada-monitor
  - path :: ~/scada-monitor
+** shadow-structure
+ - path :: ~/web-development/shadow-structure
+** understanding-re-frame
+ - path :: ~/understanding-re-frame
+** component-example
+ - path :: ~/web-development/component-example

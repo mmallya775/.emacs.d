@@ -182,7 +182,27 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
-   '("f9d423fcd4581f368b08c720f04d206ee80b37bfb314fa37e279f554b6f415e9"
+   '("2422f18687980d29da5e276547171c99f1cc1b2cb4cdbec124a53e1f34143001"
+     "2b0fcc7cc9be4c09ec5c75405260a85e41691abb1ee28d29fcd5521e4fca575b"
+     "efcecf09905ff85a7c80025551c657299a4d18c5fcfedd3b2f2b6287e4edd659"
+     "0f9a1b7a0f1d09544668297c1f04e5a5452ae1f4cf69f11b125f4cff1d54783d"
+     "830877f4aab227556548dc0a28bf395d0abe0e3a0ab95455731c9ea5ab5fe4e1"
+     "57a29645c35ae5ce1660d5987d3da5869b048477a7801ce7ab57bfb25ce12d3e"
+     "833ddce3314a4e28411edf3c6efde468f6f2616fc31e17a62587d6a9255f4633"
+     "d89e15a34261019eec9072575d8a924185c27d3da64899905f8548cbd9491a36"
+     "7f1d414afda803f3244c6fb4c2c64bea44dac040ed3731ec9d75275b9e831fe5"
+     "7fea145741b3ca719ae45e6533ad1f49b2a43bf199d9afaee5b6135fd9e6f9b8"
+     "5e39e95c703e17a743fb05a132d727aa1d69d9d2c9cde9353f5350e545c793d4"
+     "a9028cd93db14a5d6cdadba789563cb90a97899c4da7df6f51d58bb390e54031"
+     "9b417fdbb38d721455f2d2aa76cc0b118f6f7b31ca1552ca98e8878810d6e54a"
+     "d5fd482fcb0fe42e849caba275a01d4925e422963d1cd165565b31d3f4189c87"
+     "18a1d83b4e16993189749494d75e6adb0e15452c80c431aca4a867bcc8890ca9"
+     "5aedf993c7220cbbe66a410334239521d8ba91e1815f6ebde59cecc2355d7757"
+     "75b371fce3c9e6b1482ba10c883e2fb813f2cc1c88be0b8a1099773eb78a7176"
+     "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
+     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
+     "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
+     "f9d423fcd4581f368b08c720f04d206ee80b37bfb314fa37e279f554b6f415e9"
      "b9f44212b4be6f0466811c5d8a297dda3c40dbf4c4cfd97c1686fceb2043b617"
      "21d2bf8d4d1df4859ff94422b5e41f6f2eeff14dd12f01428fa3cb4cb50ea0fb"
      "452068f2985179294c73c5964c730a10e62164deed004a8ab68a5d778a2581da"
@@ -269,18 +289,22 @@
      "09b833239444ac3230f591e35e3c28a4d78f1556b107bafe0eb32b5977204d93"
      "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
      default))
+ '(doom-modeline-height 24)
  '(package-selected-packages
    '(ag all-the-icons-completion all-the-icons-dired
-	all-the-icons-ibuffer clojure-mode-extra-font-locking
-	clojure-snippets company consult-lsp counsel counsel-ag-popup
-	dashboard dashboard-hackernews dashboard-ls
-	dashboard-project-status docker docker-compose-mode
-	dockerfile-mode doom-modeline doom-themes flycheck
-	german-holidays github-dark-vscode-theme hugsql-ghosts
-	lsp-mode lsp-treemacs paredit-menu pdf-tools
-	rainbow-delimiters rg ripgrep smartparens spacemacs-theme
-	transpose-frame treemacs-icons-dired treemacs-magit
-	treemacs-projectile vertico)))
+	all-the-icons-ibuffer cider-eval-sexp-fu
+	clojure-mode-extra-font-locking clojure-snippets company
+	consult-lsp counsel counsel-ag-popup dashboard
+	dashboard-hackernews dashboard-ls dashboard-project-status
+	docker docker-compose-mode dockerfile-mode doom-modeline
+	doom-themes flycheck german-holidays git-gutter-fringe
+	github-dark-vscode-theme gruvbox-theme hugsql-ghosts lsp-mode
+	lsp-treemacs lsp-ui magit magit-delta magit-tbdiff
+	miasma-theme parchment-theme paredit-menu pdf-tools
+	rainbow-delimiters rg ripgrep smartparens solarized-theme
+	spacemacs-theme transpose-frame treemacs-icons-dired
+	treemacs-magit treemacs-projectile vertico))
+ '(timeclock-mode-line-display nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -295,10 +319,14 @@
   :hook (after-init . doom-modeline-mode))
 
 
+
 (setq lsp-clojure-custom-server-command '("/home/linuxbrew/.linuxbrew/bin/clojure-lsp"))
 
 (setq cider-font-lock-dynamically '(macro core function var))
 
+(let ((path (getenv "PATH")))
+  (setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" path))
+  (setq exec-path (split-string (getenv "PATH") path-separator)))
 
 ;; Prevent Line Wrapping
 (setq-default truncate-lines t)
@@ -411,4 +439,42 @@
 (use-package transpose-frame
   :ensure t
   :bind ("C-x t" . transpose-frame))
+
+(require 'git-gutter-fringe)
+(global-git-gutter-mode t)
+
+;; scroll one line at a time (less "jumpy" than defaults)
+
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
+(with-eval-after-load 'cider
+  (define-key cider-mode-map (kbd "C-M-x") 'cider-eval-dwim))
+
+(setq make-backup-files nil)
+
+;; Sets lsp-ui keybinds to have VS-Code like reference list window
+(use-package lsp-ui
+  :ensure t
+  :after lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)   ;; always enable lsp-ui with lsp-mode
+  :bind (("C-c r" . lsp-ui-peek-find-references))) ;; pick your preferred key
+
+;; Enable display-time-mode to show time in modeline
+(setq display-time-24hr-format t)           ;; Use 24-hour format (optional)
+(setq display-time-day-and-date t)          ;; Show day and date
+(setq display-time-default-load-average nil) ;; Don't show load average
+(display-time-mode 1)
+
+;; Configure doom-modeline to show time
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-time t)               ;; Enable time display
+  (setq doom-modeline-time-icon t)          ;; Show clock icon (optional)
+  (setq doom-modeline-height 24))           ;; You already have this
+
 
