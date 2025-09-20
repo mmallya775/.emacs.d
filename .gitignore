@@ -1,0 +1,13 @@
+/.cache
+/auto-save-list
+/eln-cache
+/elpa
+/snippets
+/transient
+/var
+.lsp-session-v1
+projectile-bookmarks.eld
+recentf
+flycheck_init.elt
+projects
+.last-package-update-day
