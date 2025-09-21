@@ -9,5 +9,6 @@
 projectile-bookmarks.eld
 recentf
 flycheck_init.elt
+flycheck_init.el
 projects
 .last-package-update-day

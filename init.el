@@ -35,6 +35,8 @@
 ;;-------------------------------------------------------------------
 ;;; Emacs customizing
 
+;;; Disabling tooltip mode and let lsp-ui show docs on hover
+(tooltip-mode -1)
 
 ;;; Fullscreen stuff
 ;; (set-frame-parameter nil 'fullscreen 'fullboth)
