@@ -76,9 +76,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(doom-vibrant))
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
-   '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
+   '("01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
+     "aa545934ce1b6fd16b4db2cf6c2ccf126249a66712786dd70f880806a187ac0b"
+     "a372fd35724ebb25694e8f977fde62af3e9dd5e31d71005968545042419fa47d"
+     "bf4d25079f7d052cb656e099d9c2af9fb61ee377e8e72b7f13cecf8dffb74f92"
+     "f1e8339b04aef8f145dd4782d03499d9d716fdc0361319411ac2efc603249326"
+     "b7a09eb77a1e9b98cafba8ef1bd58871f91958538f6671b22976ea38c2580755"
+     "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
      "0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
      "72d9086e9e67a3e0e0e6ba26a1068b8b196e58a13ccaeff4bfe5ee6288175432"
      "4d714a034e7747598869bef1104e96336a71c3d141fa58618e4606a27507db4c"
@@ -102,7 +108,19 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(all-the-icons-dired auto-package-update clj-refactor company-box
+			 company-prescient consult dashboard docker
+			 docker-compose-mode dockerfile-mode
+			 doom-modeline doom-themes eval-sexp-fu
+			 flycheck-clj-kondo git-gutter-fringe
+			 indent-bars lsp-treemacs lsp-ui magit-delta
+			 marginalia monokai-pro-theme monokai-theme
+			 orderless rainbow-delimiters spacemacs-theme
+			 standard-themes surround transpose-frame
+			 treemacs-icons-dired treemacs-magit
+			 treemacs-projectile vertico
+			 yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -121,7 +139,9 @@
 
 
 (use-package clojure-mode
-  :ensure t)
+  :ensure t
+  :config
+  (setq clojure-add-ns-to-new-files t))
 
 ;;<> Better sexp evals
 
@@ -310,6 +330,7 @@
   :bind
   (("C-x b" . consult-buffer)
    ("C-x C-b" . consult-buffer)
+   ("C-c s r" . consult-ripgrep)
    ("M-i" . consult-imenu)
    ("M-I" . consult-imenu-multi))
   :init
@@ -528,7 +549,7 @@
 ;;;;; ----------------------------------------------------------------
 ;;; Adjust font for a bigger screen
 
-(set-face-attribute 'default nil :font "Monospace-15")
+;;(set-face-attribute 'default nil :font "Monospace-15")
 
 
 
