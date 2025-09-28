@@ -76,9 +76,34 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(spacemacs-dark))
+ '(custom-enabled-themes '(ef-cyprus))
  '(custom-safe-themes
-   '("3061706fa92759264751c64950df09b285e3a2d3a9db771e99bcbb2f9b470037"
+   '("211621592803ada9c81ec8f8ba0659df185f9dc06183fcd0e40fbf646c995f23"
+     "ae20535e46a88faea5d65775ca5510c7385cbf334dfa7dde93c0cd22ed663ba0"
+     "541282f66e5cc83918994002667d2268f0a563205117860e71b7cb823c1a11e9"
+     "da69584c7fe6c0acadd7d4ce3314d5da8c2a85c5c9d0867c67f7924d413f4436"
+     "4c16a8be2f20a68f0b63979722676a176c4f77e2216cc8fe0ea200f597ceb22e"
+     "6af300029805f10970ebec4cea3134f381cd02f04c96acba083c76e2da23f3ec"
+     "59c36051a521e3ea68dc530ded1c7be169cd19e8873b7994bfc02a216041bf3b"
+     "a3a71b922fb6cbf9283884ac8a9109935e04550bcc5d2a05414a58c52a8ffc47"
+     "296dcaeb2582e7f759e813407ff1facfd979faa071cf27ef54100202c45ae7d4"
+     "e85a354f77ae6c2e47667370a8beddf02e8772a02e1f7edb7089e793f4762a45"
+     "c038d994d271ebf2d50fa76db7ed0f288f17b9ad01b425efec09519fa873af53"
+     "36c5acdaf85dda0dad1dd3ad643aacd478fb967960ee1f83981d160c52b3c8ac"
+     "cd5f8f91cc2560c017cc9ec24a9ab637451e36afd22e00a03e08d7b1b87c29ca"
+     "19b62f442479efd3ca4c1cef81c2311579a98bbc0f3684b49cdf9321bd5dfdbf"
+     "71b688e7ef7c844512fa7c4de7e99e623de99a2a8b3ac3df4d02f2cd2c3215e7"
+     "b41d0a9413fb0034cea34eb8c9f89f6e243bdd76bccecf8292eb1fefa42eaf0a"
+     "3d9938bbef24ecee9f2632cb25339bf2312d062b398f0dfb99b918f8f11e11b1"
+     "fae5872ff90462502b3bedfe689c02d2fa281bc63d33cb007b94a199af6ccf24"
+     "ffa78fc746f85d1c88a2d1691b1e37d21832e9a44a0eeee114a00816eabcdaf9"
+     "ac893acecb0f1cf2b6ccea5c70ea97516c13c2b80c07f3292c21d6eb0cb45239"
+     "b1791a921c4f38cb966c6f78633364ad880ad9cf36eef01c60982c54ec9dd088"
+     "df39cc8ecf022613fc2515bccde55df40cb604d7568cb96cd7fe1eff806b863b"
+     "00d7122017db83578ef6fba39c131efdcb59910f0fac0defbe726da8072a0729"
+     "ea4dd126d72d30805c083421a50544e235176d9698c8c541b824b60912275ba1"
+     "b3ba955a30f22fe444831d7bc89f6466b23db8ce87530076d1f1c30505a4c23b"
+     "3061706fa92759264751c64950df09b285e3a2d3a9db771e99bcbb2f9b470037"
      "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700"
      "42a6583a45e0f413e3197907aa5acca3293ef33b4d3b388f54fa44435a494739"
      "2f7fa7a92119d9ed63703d12723937e8ba87b6f3876c33d237619ccbd60c96b9"
@@ -127,10 +152,10 @@
 			 clojure-mode-extra-font-locking company-box
 			 company-prescient consult-lsp dashboard
 			 docker docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes eval-sexp-fu
-			 flycheck-clj-kondo git-gutter-fringe
-			 indent-bars kanagawa-themes lsp-treemacs
-			 lsp-ui magit-delta marginalia
+			 doom-modeline doom-themes ef-themes
+			 eval-sexp-fu flycheck-clj-kondo
+			 git-gutter-fringe indent-bars kanagawa-themes
+			 lsp-treemacs lsp-ui magit-delta marginalia
 			 monokai-pro-theme monokai-theme orderless
 			 rainbow-delimiters spacemacs-theme
 			 standard-themes surround transpose-frame
@@ -634,3 +659,19 @@
 (use-package cider-hydra
   :after cider
   :ensure t)
+
+
+
+;; --------------------------------------------------------------
+;; Nice ef-themes
+
+(use-package ef-themes
+  :ensure t)
+
+
+
+;; ------------------------------------------------------------
+;; Highlight current line
+
+(use-package hl-line
+  :hook (after-init . global-hl-line-mode))
