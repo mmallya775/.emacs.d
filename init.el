@@ -76,9 +76,23 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-enabled-themes '(spacemacs-dark))
  '(custom-safe-themes
-   '("01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
+   '("3061706fa92759264751c64950df09b285e3a2d3a9db771e99bcbb2f9b470037"
+     "56044c5a9cc45b6ec45c0eb28df100d3f0a576f18eef33ff8ff5d32bac2d9700"
+     "42a6583a45e0f413e3197907aa5acca3293ef33b4d3b388f54fa44435a494739"
+     "2f7fa7a92119d9ed63703d12723937e8ba87b6f3876c33d237619ccbd60c96b9"
+     "a9eeab09d61fef94084a95f82557e147d9630fbbb82a837f971f83e66e21e5ad"
+     "9af2b1c0728d278281d87dc91ead7f5d9f2287b1ed66ec8941e97ab7a6ab73c0"
+     "21d2bf8d4d1df4859ff94422b5e41f6f2eeff14dd12f01428fa3cb4cb50ea0fb"
+     "e4a702e262c3e3501dfe25091621fe12cd63c7845221687e36a79e17cf3a67e0"
+     "b6269b0356ed8d9ed55b0dcea10b4e13227b89fd2af4452eee19ac88297b0f99"
+     "e8bd9bbf6506afca133125b0be48b1f033b1c8647c628652ab7a2fe065c10ef0"
+     "22a0d47fe2e6159e2f15449fcb90bbf2fe1940b185ff143995cc604ead1ea171"
+     "daa27dcbe26a280a9425ee90dc7458d85bd540482b93e9fa94d4f43327128077"
+     "c20728f5c0cb50972b50c929b004a7496d3f2e2ded387bf870f89da25793bb44"
+     "d2ab3d4f005a9ad4fb789a8f65606c72f30ce9d281a9e42da55f7f4b9ef5bfc6"
+     "01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
      "aa545934ce1b6fd16b4db2cf6c2ccf126249a66712786dd70f880806a187ac0b"
      "a372fd35724ebb25694e8f977fde62af3e9dd5e31d71005968545042419fa47d"
      "bf4d25079f7d052cb656e099d9c2af9fb61ee377e8e72b7f13cecf8dffb74f92"
@@ -109,14 +123,16 @@
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
  '(package-selected-packages
-   '(all-the-icons-dired auto-package-update clj-refactor company-box
-			 company-prescient consult dashboard docker
-			 docker-compose-mode dockerfile-mode
+   '(all-the-icons-dired auto-package-update cider-hydra clj-refactor
+			 clojure-mode-extra-font-locking company-box
+			 company-prescient consult-lsp dashboard
+			 docker docker-compose-mode dockerfile-mode
 			 doom-modeline doom-themes eval-sexp-fu
 			 flycheck-clj-kondo git-gutter-fringe
-			 indent-bars lsp-treemacs lsp-ui magit-delta
-			 marginalia monokai-pro-theme monokai-theme
-			 orderless rainbow-delimiters spacemacs-theme
+			 indent-bars kanagawa-themes lsp-treemacs
+			 lsp-ui magit-delta marginalia
+			 monokai-pro-theme monokai-theme orderless
+			 rainbow-delimiters spacemacs-theme
 			 standard-themes surround transpose-frame
 			 treemacs-icons-dired treemacs-magit
 			 treemacs-projectile vertico
@@ -140,13 +156,19 @@
 
 (use-package clojure-mode
   :ensure t
-  :config
-  (setq clojure-add-ns-to-new-files t))
+  :init
+  ;; Disable auto ns template insertion (clojure-lsp will handle it)
+  (setq clojure-insert-namespace-template nil))
 
 ;;<> Better sexp evals
 
 (use-package eval-sexp-fu
   :ensure t)
+
+;;<> Extra font locking
+(use-package clojure-mode-extra-font-locking
+  :ensure t)
+
 
 ;;; -------------------------------------------------------------
 ;;;; CLJ Refactor
@@ -154,6 +176,7 @@
 (use-package clj-refactor
   :ensure t
   :init
+  (setq cljr-add-ns-to-blank-clj-files nil)
   (cljr-add-keybindings-with-prefix "C-c C-r"))
 
 ;;--------------------------------------------------------------------------------
@@ -161,7 +184,7 @@
 
 (use-package lsp-mode
   :ensure t
-  :commands (lsp lsp-deferred)
+  :commands lsp
   :init
   ;; set prefix for lsp-mode commands
   (setq lsp-keymap-prefix "C-c l"
@@ -174,15 +197,29 @@
 	lsp-log-io nil			; set to t to debug protocol
 	lsp-headerline-breadcrumb-enable t
 	lsp-signature-auto-activate nil)
-  :hook ((clojure-mode . lsp-deferred)
-         (lisp-mode . lsp-deferred)))
+  (setq lsp-file-watch-ignored-directories
+      '("[/\\\\]\\.shadow-cljs\\'"
+        "[/\\\\]\\.git\\'"
+        "[/\\\\]\\.clj-kondo\\'"
+        "[/\\\\]\\.cpcache\\'"
+        "[/\\\\]target\\'"
+        "[/\\\\]node_modules"))
+  :hook ((clojure-mode . lsp)
+	 (clojurescript-mode . lsp)
+         (clojurec-mode . lsp)
+         (lisp-mode . lsp)))
+
+;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
+;; namespace declarations
+;; (with-eval-after-load 'clojure-mode
+;;   (remove-hook 'clojure-mode-hook #'clojure-insert-ns-template))
 
 
 ;;<> LSP UI for improved references
 (use-package lsp-ui
   :ensure t
   :after lsp-mode
-  :hook (lsp-mode . lsp-ui-mode)   ;; always enable lsp-ui with lsp-mode
+  :hook (lsp-mode . lsp-ui-mode) ;; always enable lsp-ui with lsp-mode
   :bind (("C-c r" . lsp-ui-peek-find-references))
   :custom
   (lsp-ui-doc-enable t)
@@ -336,8 +373,12 @@
   :init
   ;; Set up Consult to use the Vertico preview feature.
   (setq completion-in-region-function
-        #'consult-completion-in-region)) 
+        #'consult-completion-in-region))
 
+;;<> Consult-lsp
+(use-package consult-lsp
+  :ensure t
+  :after (consult lsp-mode)) ;; references at point
 
 ;;;; --------------------------------------------------------------------------
 ;;; Magit to handle git stuff
@@ -565,4 +606,24 @@
 ;; Surrounding like vim surround
 
 (use-package surround
+  :ensure t)
+
+
+
+;;-----------------------------------------------------------------
+;; Consult LSP for navigation
+(use-package consult-lsp
+  :ensure t
+  :after lsp-mode
+  :bind (("C-c l s" . consult-lsp-symbols)))
+
+
+;; ---------------------------------------------------------------
+;; Hydra stuff
+
+(use-package hydra
+  :ensure t)
+
+(use-package cider-hydra
+  :after cider
   :ensure t)
