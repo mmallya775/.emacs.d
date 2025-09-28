@@ -638,8 +638,8 @@
 ;; Surrounding like vim surround
 
 (use-package surround
-  :ensure t)
-
+  :ensure t
+  :bind-keymap ("M-8" . surround-keymap))
 
 
 ;;-----------------------------------------------------------------
