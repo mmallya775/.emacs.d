@@ -228,6 +228,7 @@
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
 	lsp-enable-on-type-formatting nil
+	lsp-completion-no-cache t
 	;; lsp-enable-file-watchers t
 	lsp-idle-delay 0.2
 	lsp-headerline-breadcrumb-enable t
@@ -235,8 +236,11 @@
   :config
   (setq gc-cons-threshold (* 100 1024 1024)
                 read-process-output-max (* 1024 1024))
+
+  (define-key lsp-mode-map (kbd "C-c l r") #'lsp-workspace-restart)
+  
   (setq lsp-file-watch-ignored-directories
-   '("[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.cpcache\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"))
+	'("[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.cpcache\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"))
   :hook ((clojure-mode . lsp)
 	 (clojurescript-mode . lsp)
          (clojurec-mode . lsp)
@@ -348,11 +352,11 @@
   :init
   (global-flycheck-mode))
 
-;;<> clj-kondo support for flycheck
+;; ;;<> clj-kondo support for flycheck
 
-(use-package flycheck-clj-kondo
-  :ensure t
-  :after flycheck)
+;; (use-package flycheck-clj-kondo
+;;   :ensure t
+;;   :after flycheck)
 
 
 ;;; ----------------------------------------------------------------------

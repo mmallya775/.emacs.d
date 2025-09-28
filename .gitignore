@@ -13,3 +13,4 @@ flycheck_init.el
 projects
 .last-package-update-day
 tramp
+/workspace
