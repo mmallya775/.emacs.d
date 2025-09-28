@@ -151,7 +151,11 @@
 (use-package cider
   :ensure t
   :config
-  (define-key cider-mode-map (kbd "C-M-x") 'cider-eval-dwim))
+  (define-key cider-mode-map (kbd "C-M-x") 'cider-eval-dwim)
+  (setq cider-repl-use-pretty-printing t)
+  (setq cider-repl-use-clojure-font-lock t)
+  (setq cider-repl-result-prefix ";; => ")
+  (setq cider-eval-spinner-type 'vertical-breathing))
 
 
 (use-package clojure-mode
@@ -204,6 +208,9 @@
         "[/\\\\]\\.cpcache\\'"
         "[/\\\\]target\\'"
         "[/\\\\]node_modules"))
+  :config
+  (setq gc-cons-threshold (* 100 1024 1024)
+                read-process-output-max (* 1024 1024))
   :hook ((clojure-mode . lsp)
 	 (clojurescript-mode . lsp)
          (clojurec-mode . lsp)
@@ -286,7 +293,7 @@
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous)
         ("<tab>" . company-complete-selection)
-        ("TAB" . company-complete-selection)
+        ("TAB" . company-indent-or-complete-common)
         ("C-s" . company-filter-candidates)
         ("C-d" . company-show-doc-buffer))
   (:map global-map
