@@ -217,13 +217,12 @@
   :init
   ;; set prefix for lsp-mode commands
   (setq lsp-keymap-prefix "C-c l"
-	lsp-prefer-capf t
+	company-minimum-prefix-length 1
 	lsp-enable-snippet t
 	lsp-enable-indentation t
 	lsp-enable-on-type-formatting nil
-	lsp-enable-file-watch t
+	lsp-enable-file-watchers t
 	lsp-idle-delay 0.2
-	lsp-log-io nil			; set to t to debug protocol
 	lsp-headerline-breadcrumb-enable t
 	lsp-signature-auto-activate nil)
   (setq lsp-file-watch-ignored-directories
