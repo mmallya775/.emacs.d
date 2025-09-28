@@ -55,10 +55,16 @@
 ;;;; Append the homebrew installed stuffs into the exec-path
 ;;;; otherwise emacs wouldn't see lein or npm installed from homebrew
 
-(let ((path (getenv "PATH")))
-  (setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" path))
-  (setq exec-path (split-string (getenv "PATH") path-separator)))
+;; (let ((path (getenv "PATH")))
+;;   (setenv "PATH" (concat "/home/linuxbrew/.linuxbrew/bin:" path))
+;;   (setq exec-path (split-string (getenv "PATH") path-separator)))
 
+
+;; Use 'exec-path-from-shell' package for reliable path handling on macOS
+(use-package exec-path-from-shell
+  :ensure t
+  :init
+  (exec-path-from-shell-initialize))
 
 ;; scroll one line at a time (less "jumpy" than defaults)
 
@@ -220,21 +226,17 @@
 	company-minimum-prefix-length 1
 	lsp-enable-snippet t
 	lsp-enable-indentation t
+	lsp-file-watch-threshold 5000
 	lsp-enable-on-type-formatting nil
-	lsp-enable-file-watchers t
+	;; lsp-enable-file-watchers t
 	lsp-idle-delay 0.2
 	lsp-headerline-breadcrumb-enable t
 	lsp-signature-auto-activate nil)
-  (setq lsp-file-watch-ignored-directories
-      '("[/\\\\]\\.shadow-cljs\\'"
-        "[/\\\\]\\.git\\'"
-        "[/\\\\]\\.clj-kondo\\'"
-        "[/\\\\]\\.cpcache\\'"
-        "[/\\\\]target\\'"
-        "[/\\\\]node_modules"))
   :config
   (setq gc-cons-threshold (* 100 1024 1024)
                 read-process-output-max (* 1024 1024))
+  (setq lsp-file-watch-ignored-directories
+   '("[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.cpcache\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"))
   :hook ((clojure-mode . lsp)
 	 (clojurescript-mode . lsp)
          (clojurec-mode . lsp)
