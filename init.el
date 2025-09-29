@@ -241,10 +241,15 @@
   
   (setq lsp-file-watch-ignored-directories
 	'("[/\\\\]\\.shadow-cljs\\'" "[/\\\\]\\.git\\'" "[/\\\\]\\.hg\\'" "[/\\\\]\\.bzr\\'" "[/\\\\]_darcs\\'" "[/\\\\]\\.svn\\'" "[/\\\\]_FOSSIL_\\'" "[/\\\\]\\.idea\\'" "[/\\\\]\\.ensime_cache\\'" "[/\\\\]\\.eunit\\'" "[/\\\\]node_modules" "[/\\\\]\\.fslckout\\'" "[/\\\\]\\.tox\\'" "[/\\\\]dist\\'" "[/\\\\]dist-newstyle\\'" "[/\\\\]\\.stack-work\\'" "[/\\\\]\\.bloop\\'" "[/\\\\]\\.metals\\'" "[/\\\\]target\\'" "[/\\\\]\\.ccls-cache\\'" "[/\\\\]\\.vscode\\'" "[/\\\\]\\.deps\\'" "[/\\\\]build-aux\\'" "[/\\\\]autom4te.cache\\'" "[/\\\\]\\.reference\\'" "[/\\\\]\\.lsp\\'" "[/\\\\]\\.clj-kondo\\'" "[/\\\\]\\.cpcache\\'" "[/\\\\]bin/Debug\\'" "[/\\\\]obj\\'"))
+  :custom
+        (lsp-gopls-staticcheck t)   ;; enable extra analysis
+        (lsp-gopls-complete-unimported t)
+        (lsp-gopls-use-placeholders t)
   :hook ((clojure-mode . lsp)
 	 (clojurescript-mode . lsp)
          (clojurec-mode . lsp)
-         (lisp-mode . lsp)))
+         (lisp-mode . lsp)
+	 (go-mode . lsp)))
 
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
@@ -680,3 +685,25 @@
 
 (use-package hl-line
   :hook (after-init . global-hl-line-mode))
+
+
+
+;; ==============================================================
+;; A bit of golang stuff below
+
+;; Major mode for Go
+(use-package go-mode
+  :ensure t
+  :hook ((go-mode . lsp)
+         (before-save . gofmt-before-save))
+  :config
+  ;; Use goimports instead of gofmt if available
+  (setq gofmt-command "goimports"))
+
+
+;; Smartparens only for Go
+(use-package smartparens
+  :ensure t
+  :hook (go-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
