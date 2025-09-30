@@ -82,7 +82,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(ef-cyprus))
+ '(custom-enabled-themes '(spacemacs-dark))
  '(custom-safe-themes
    '("211621592803ada9c81ec8f8ba0659df185f9dc06183fcd0e40fbf646c995f23"
      "ae20535e46a88faea5d65775ca5510c7385cbf334dfa7dde93c0cd22ed663ba0"
@@ -153,6 +153,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
+ '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
    '(all-the-icons-dired auto-package-update cider-hydra clj-refactor
 			 clojure-mode-extra-font-locking company-box
@@ -664,7 +665,16 @@
 ;; Hydra stuff
 
 (use-package hydra
-  :ensure t)
+  :ensure t
+  :config
+  (defhydra hydra-expand-region ()
+    "
+Expand Region:
+  _+_: expand   _-_: contract   _q_: quit
+"
+    ("+" er/expand-region)
+    ("-" er/contract-region)
+    ("q" nil "quit")))
 
 (use-package cider-hydra
   :after cider
@@ -687,6 +697,24 @@
   :hook (after-init . global-hl-line-mode))
 
 
+;;-------------------------------------------------------------
+;; winner mode for window layout recovery
+(use-package winner
+  :config
+  (winner-mode 1))
+
+
+;;------------------------------------------------------------
+;; Expand region for better region selection in clojure
+
+(use-package expand-region
+  :ensure t
+  :bind
+  ;; Entry point: Control-Meta-Space (easy on German Mac layout)
+  ("C-M-SPC" . hydra-expand-region/body))
+
+
+
 
 ;; ==============================================================
 ;; A bit of golang stuff below
@@ -707,3 +735,4 @@
   :hook (go-mode . smartparens-mode)
   :config
   (require 'smartparens-config))
+
