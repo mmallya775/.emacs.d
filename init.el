@@ -82,7 +82,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(spacemacs-dark))
+ '(custom-enabled-themes '(ef-cyprus))
  '(custom-safe-themes
    '("211621592803ada9c81ec8f8ba0659df185f9dc06183fcd0e40fbf646c995f23"
      "ae20535e46a88faea5d65775ca5510c7385cbf334dfa7dde93c0cd22ed663ba0"
@@ -667,14 +667,15 @@
 (use-package hydra
   :ensure t
   :config
-  (defhydra hydra-expand-region ()
+  (defhydra hydra-expand-region (:hint nil)
     "
 Expand Region:
-  _+_: expand   _-_: contract   _q_: quit
+-------------------------------------------------
+  _+_: expand     _-_: contract     _q_: quit
 "
     ("+" er/expand-region)
     ("-" er/contract-region)
-    ("q" nil "quit")))
+    ("q" nil)))
 
 (use-package cider-hydra
   :after cider
