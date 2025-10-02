@@ -88,9 +88,33 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(spacemacs-dark))
+ '(custom-enabled-themes '(doom-gruvbox))
  '(custom-safe-themes
-   '("211621592803ada9c81ec8f8ba0659df185f9dc06183fcd0e40fbf646c995f23"
+   '("d5fd482fcb0fe42e849caba275a01d4925e422963d1cd165565b31d3f4189c87"
+     "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
+     "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
+     "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
+     "d97ac0baa0b67be4f7523795621ea5096939a47e8b46378f79e78846e0e4ad3d"
+     "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
+     "df6dfd55673f40364b1970440f0b0cb8ba7149282cf415b81aaad2d98b0f0290"
+     "ff24d14f5f7d355f47d53fd016565ed128bf3af30eb7ce8cae307ee4fe7f3fd0"
+     "f053f92735d6d238461da8512b9c071a5ce3b9d972501f7a5e6682a90bf29725"
+     "dd4582661a1c6b865a33b89312c97a13a3885dc95992e2e5fc57456b4c545176"
+     "02d422e5b99f54bd4516d4157060b874d14552fe613ea7047c4a5cfa1288cf4f"
+     "088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
+     "1f8bd4db8280d5e7c5e6a12786685a7e0c6733b0e3cf99f839fb211236fb4529"
+     "4b88b7ca61eb48bb22e2a4b589be66ba31ba805860db9ed51b4c484f3ef612a7"
+     "b5fd9c7429d52190235f2383e47d340d7ff769f141cd8f9e7a4629a81abc6b19"
+     "720838034f1dd3b3da66f6bd4d053ee67c93a747b219d1c546c41c4e425daf93"
+     "9b9d7a851a8e26f294e778e02c8df25c8a3b15170e6f9fd6965ac5f2544ef2a9"
+     "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8"
+     "6963de2ec3f8313bb95505f96bf0cf2025e7b07cefdb93e3d2e348720d401425"
+     "b754d3a03c34cfba9ad7991380d26984ebd0761925773530e24d8dd8b6894738"
+     "7c3d62a64bafb2cc95cd2de70f7e4446de85e40098ad314ba2291fc07501b70c"
+     "d609d9aaf89d935677b04d34e4449ba3f8bbfdcaaeeaab3d21ee035f43321ff1"
+     "268ffd888ba4ffacb351b8860c8c1565b31613ecdd8908675d571855e270a12b"
+     "fffef514346b2a43900e1c7ea2bc7d84cbdd4aa66c1b51946aade4b8d343b55a"
+     "211621592803ada9c81ec8f8ba0659df185f9dc06183fcd0e40fbf646c995f23"
      "ae20535e46a88faea5d65775ca5510c7385cbf334dfa7dde93c0cd22ed663ba0"
      "541282f66e5cc83918994002667d2268f0a563205117860e71b7cb823c1a11e9"
      "da69584c7fe6c0acadd7d4ce3314d5da8c2a85c5c9d0867c67f7924d413f4436"
@@ -167,13 +191,13 @@
 			 docker docker-compose-mode dockerfile-mode
 			 doom-modeline doom-themes ef-themes
 			 eval-sexp-fu flycheck-clj-kondo
-			 git-gutter-fringe indent-bars kanagawa-themes
-			 lsp-treemacs lsp-ui magit-delta marginalia
-			 monokai-pro-theme monokai-theme orderless
-			 rainbow-delimiters spacemacs-theme
-			 standard-themes surround transpose-frame
-			 treemacs-icons-dired treemacs-magit
-			 treemacs-projectile vertico
+			 git-gutter-fringe gruvbox-theme indent-bars
+			 kanagawa-themes lsp-treemacs lsp-ui
+			 magit-delta marginalia monokai-pro-theme
+			 monokai-theme orderless rainbow-delimiters
+			 spacemacs-theme standard-themes surround
+			 transpose-frame treemacs-icons-dired
+			 treemacs-magit treemacs-projectile vertico
 			 yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
