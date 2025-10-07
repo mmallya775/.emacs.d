@@ -88,9 +88,31 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(doom-gruvbox))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("d5fd482fcb0fe42e849caba275a01d4925e422963d1cd165565b31d3f4189c87"
+   '("75eef60308d7328ed14fa27002e85de255c2342e73275173a14ed3aa1643d545"
+     "3613617b9953c22fe46ef2b593a2e5bc79ef3cc88770602e7e569bbd71de113b"
+     "f253a920e076213277eb4cbbdf3ef2062e018016018a941df6931b995c6ff6f6"
+     "2ab8cb6d21d3aa5b821fa638c118892049796d693d1e6cd88cb0d3d7c3ed07fc"
+     "2a1d0e4e6bd665fb532cb07cdf466e3bba1e4f2e5e6e01eee1fa913edabe8759"
+     "e14991397ba1341f1240216392f48889a343506b1f9c8e9c37ed391151f87463"
+     "5a548c9d5a6ca78d13283ed709bddf3307b65a7695e1b2e2b7e0a9dde45e8599"
+     "bb0f3ae2f6f6f6dbbbe03df66d74ca0aecefa6723ac1686f421dd1ffe26b71c3"
+     "ba4f725d8e906551cfab8c5f67e71339f60fac11a8815f51051ddb8409ea6e5c"
+     "83550d0386203f010fa42ad1af064a766cfec06fc2f42eb4f2d89ab646f3ac01"
+     "3f24dd8f542f4aa8186a41d5770eb383f446d7228cd7a3413b9f5e0ec0d5f3c0"
+     "921f165deb8030167d44eaa82e85fcef0254b212439b550a9b6c924f281b5695"
+     "0f1341c0096825b1e5d8f2ed90996025a0d013a0978677956a9e61408fcd2c77"
+     "77fff78cc13a2ff41ad0a8ba2f09e8efd3c7e16be20725606c095f9a19c24d3d"
+     "0b41a4a9f81967daacd737f83d3eac7e3112d642e3f786cf7613de4da97a830a"
+     "b9c002dc827fb75b825da3311935c9f505d48d7ee48f470f0aa7ac5d2a595ab2"
+     "cee5c56dc8b95b345bfe1c88d82d48f89e0f23008b0c2154ef452b2ce348da37"
+     "aff0396925324838889f011fd3f5a0b91652b88f5fd0611f7b10021cc76f9e09"
+     "d6b369a3f09f34cdbaed93eeefcc6a0e05e135d187252e01b0031559b1671e97"
+     "1ad12cda71588cc82e74f1cabeed99705c6a60d23ee1bb355c293ba9c000d4ac"
+     "f9d423fcd4581f368b08c720f04d206ee80b37bfb314fa37e279f554b6f415e9"
+     "09b833239444ac3230f591e35e3c28a4d78f1556b107bafe0eb32b5977204d93"
+     "d5fd482fcb0fe42e849caba275a01d4925e422963d1cd165565b31d3f4189c87"
      "51fa6edfd6c8a4defc2681e4c438caf24908854c12ea12a1fbfd4d055a9647a3"
      "5a0ddbd75929d24f5ef34944d78789c6c3421aa943c15218bac791c199fc897d"
      "8363207a952efb78e917230f5a4d3326b2916c63237c1f61d7e5fe07def8d378"
@@ -183,22 +205,26 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
-   '(all-the-icons-dired auto-package-update cider-hydra clj-refactor
+   '(all-the-icons-dired ample-theme atom-one-dark-theme
+			 auto-package-update catppuccin-theme
+			 cider-hydra clj-refactor
 			 clojure-mode-extra-font-locking company-box
 			 company-prescient consult-lsp dashboard
 			 docker docker-compose-mode dockerfile-mode
 			 doom-modeline doom-themes ef-themes
-			 eval-sexp-fu flycheck-clj-kondo
-			 git-gutter-fringe gruvbox-theme indent-bars
+			 eval-sexp-fu exec-path-from-shell
+			 expand-region flycheck-clj-kondo
+			 git-gutter-fringe go-mode gruvbox-theme
+			 indent-bars jetbrains-darcula-theme
 			 kanagawa-themes lsp-treemacs lsp-ui
-			 magit-delta marginalia monokai-pro-theme
-			 monokai-theme orderless rainbow-delimiters
+			 magit-delta marginalia material-theme
+			 monokai-pro-theme monokai-theme orderless
+			 rainbow-delimiters smartparens
 			 spacemacs-theme standard-themes surround
 			 transpose-frame treemacs-icons-dired
 			 treemacs-magit treemacs-projectile vertico
-			 yasnippet-snippets)))
+			 yasnippet-snippets zenburn-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -767,3 +793,11 @@
   :config
   (require 'smartparens-config))
 
+
+
+(use-package catppuccin-theme
+  :ensure t
+  :config
+  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'mocha)
+  (load-theme 'catppuccin t))
