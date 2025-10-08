@@ -205,26 +205,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages
-   '(all-the-icons-dired ample-theme atom-one-dark-theme
-			 auto-package-update catppuccin-theme
-			 cider-hydra clj-refactor
-			 clojure-mode-extra-font-locking company-box
-			 company-prescient consult-lsp dashboard
-			 docker docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes ef-themes
-			 eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck-clj-kondo
-			 git-gutter-fringe go-mode gruvbox-theme
-			 indent-bars jetbrains-darcula-theme
-			 kanagawa-themes lsp-treemacs lsp-ui
-			 magit-delta marginalia material-theme
-			 monokai-pro-theme monokai-theme orderless
-			 rainbow-delimiters smartparens
-			 spacemacs-theme standard-themes surround
-			 transpose-frame treemacs-icons-dired
-			 treemacs-magit treemacs-projectile vertico
-			 yasnippet-snippets zenburn-theme)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -306,7 +287,8 @@
 	 (clojurescript-mode . lsp)
          (clojurec-mode . lsp)
          (lisp-mode . lsp)
-	 (go-mode . lsp)))
+	 (go-mode . lsp)
+	 (rustic-mode . lsp)))
 
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
@@ -786,10 +768,11 @@
   (setq gofmt-command "goimports"))
 
 
-;; Smartparens only for Go
+;; Smartparens only for Go & Rust
 (use-package smartparens
   :ensure t
-  :hook (go-mode . smartparens-mode)
+  :hook ((go-mode . smartparens-mode)
+	 (rustic-mode . smartparens-mode))
   :config
   (require 'smartparens-config))
 
@@ -801,3 +784,29 @@
   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
   (setq catppuccin-flavor 'mocha)
   (load-theme 'catppuccin t))
+
+
+
+;; ==============================================================
+;; Rust programming setup
+
+(use-package rustic
+  :ensure t
+  :config
+  ;; Use rust-analyzer with lsp-mode
+  (setq rustic-lsp-client 'lsp)
+  ;; Format on save
+  (setq rustic-format-on-save t)
+  ;; Faster completions
+  (setq lsp-idle-delay 0.2
+        lsp-rust-analyzer-server-display-inlay-hints t
+        lsp-rust-analyzer-cargo-watch-command "clippy"))
+
+;;--------------------------------------------------------------------
+;; Highlighting for toml files
+
+(use-package toml-mode
+  :ensure t
+  :mode ("\\.toml\\'" . toml-mode))
+
+
