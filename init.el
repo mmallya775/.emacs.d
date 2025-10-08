@@ -88,7 +88,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes '(ef-cyprus))
  '(custom-safe-themes
    '("75eef60308d7328ed14fa27002e85de255c2342e73275173a14ed3aa1643d545"
      "3613617b9953c22fe46ef2b593a2e5bc79ef3cc88770602e7e569bbd71de113b"
@@ -778,12 +778,12 @@
 
 
 
-(use-package catppuccin-theme
-  :ensure t
-  :config
-  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-  (setq catppuccin-flavor 'mocha)
-  (load-theme 'catppuccin t))
+;; (use-package catppuccin-theme
+;;   :ensure t
+;;   :config
+;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+;;   (setq catppuccin-flavor 'mocha)
+;;   (load-theme 'catppuccin t))
 
 
 
