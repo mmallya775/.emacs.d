@@ -563,7 +563,7 @@
              (bound-and-true-p lsp-mode))
     (ignore-errors (lsp-format-buffer))))
 ;; Uncomment if you want auto-format:
-(add-hook 'before-save-hook #'my/clojure-lsp-format)
+;; (add-hook 'before-save-hook #'my/clojure-lsp-format)
 
 (global-set-key (kbd "C-c f") #'my/clojure-lsp-format)
 
