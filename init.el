@@ -88,7 +88,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(ef-cyprus))
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
    '("75eef60308d7328ed14fa27002e85de255c2342e73275173a14ed3aa1643d545"
      "3613617b9953c22fe46ef2b593a2e5bc79ef3cc88770602e7e569bbd71de113b"
@@ -205,6 +205,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
+ '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
