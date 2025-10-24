@@ -792,7 +792,7 @@
   (setq gofmt-command "goimports"))
 
 
-;; Smartparens only for Go & Rust
+;; Smartparens for selected languages
 (use-package smartparens
   :ensure t
   :hook ((go-mode . smartparens-mode)
