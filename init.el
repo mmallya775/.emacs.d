@@ -229,28 +229,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(all-the-icons-dired ample-theme atom-one-dark-theme
-			 auto-package-update catppuccin-theme
-			 cider-hydra clj-refactor
-			 clojure-mode-extra-font-locking company-box
-			 company-prescient consult-lsp dashboard
-			 docker docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes ef-themes
-			 eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck-clj-kondo
-			 git-gutter-fringe go-mode gruvbox-theme
-			 indent-bars jetbrains-darcula-theme
-			 kanagawa-themes kaolin-themes lsp-treemacs
-			 lsp-ui magit-delta marginalia material-theme
-			 monokai-pro-theme monokai-theme nord-theme
-			 orderless rainbow-delimiters rustic
-			 smartparens spacemacs-theme srcery-theme
-			 standard-themes surround toml-mode
-			 transpose-frame treemacs-icons-dired
-			 treemacs-magit treemacs-projectile vertico
-			 yasnippet-snippets zenburn-theme)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -817,7 +796,10 @@
 (use-package smartparens
   :ensure t
   :hook ((go-mode . smartparens-mode)
-	 (rustic-mode . smartparens-mode))
+	 (rustic-mode . smartparens-mode)
+	 (c++-mode . smartparens-mode)
+	 (c-mode . smartparens-mode)
+	 (cmake-mode . smartparens-mode))
   :config
   (require 'smartparens-config))
 
@@ -855,3 +837,71 @@
   :mode ("\\.toml\\'" . toml-mode))
 
 
+;; ==============================================================
+
+;; CMake mode for CMakeLists.txt and *.cmake
+(use-package cmake-mode
+  :ensure t
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode)))
+
+;; Optional: CMake font-lock and extras
+(use-package cmake-font-lock
+  :ensure t
+  :hook (cmake-mode . cmake-font-lock-activate))
+
+;; LSP mode integration for C++
+(use-package lsp-mode
+  :ensure t
+  :hook ((c++-mode . lsp)
+         (c-mode . lsp)
+         (cmake-mode . lsp))
+  :custom
+  (lsp-clients-clangd-args
+   '("--header-insertion=never"
+     "--cross-file-rename"
+     "--clang-tidy"
+     "--completion-style=detailed"))
+  :config
+  (setq lsp-prefer-flymake nil))
+
+;; LSP UI (already loaded for other languages)
+;; Will automatically enhance C++ hover docs, references, etc.
+
+;; Company mode completions (already active globally)
+
+;; ==============================================================
+;; CMake project building and running
+
+(use-package cmake-ide
+  :ensure t
+  :config
+  (cmake-ide-setup)
+  ;; Optional: automatically run cmake when opening a CMakeLists.txt
+  (setq cmake-ide-run-cmake t))
+
+;; ==============================================================
+;; Code formatting
+
+(use-package clang-format
+  :ensure t
+  :bind (("C-c C-f" . clang-format-buffer)
+         ("C-c f" . clang-format-region))
+  :hook ((c-mode c++-mode) . (lambda ()
+                               (add-hook 'before-save-hook
+                                         'clang-format-buffer nil t))))
+
+
+(defun cmake-run ()
+  "Automatically configure, build, and run the main executable for a CMake project."
+  (interactive)
+  (let* ((default-directory (locate-dominating-file buffer-file-name "CMakeLists.txt"))
+         (build-dir (expand-file-name "build" default-directory))
+         (cmake-cmd (format "cmake -S %s -B %s" default-directory build-dir))
+         (build-cmd (format "cmake --build %s" build-dir))
+         (exe (car (directory-files build-dir t "^[^.]+" t))) ;; first file (usually executable)
+         (run-cmd (if (and exe (file-executable-p exe))
+                      (format "%s" exe)
+                    (format "echo 'No executable found in %s'" build-dir)))
+         (full-cmd (format "%s && %s && %s" cmake-cmd build-cmd run-cmd)))
+    (compile full-cmd)))
