@@ -20,6 +20,16 @@
 ;; Prompt to delete autosaves when killing buffers.
 (setf kill-buffer-delete-auto-save-files t)
 
+;; Hide the unnecessary stuff from projectile
+(with-eval-after-load 'projectile
+  ;; Ignore common Clojure/LSP tooling dirs everywhere
+  (dolist (dir '(".clj-kondo" ".lsp" ".cache" ".cpcache" ".shadow-cljs"
+                 ".idea" ".vscode" "node_modules" "target" "build"))
+    (add-to-list 'projectile-globally-ignored-directories dir))
+
+  ;; If you have specific files you want ignored:
+  (dolist (file '(".lsp-session-v1" ".DS_Store"))
+    (add-to-list 'projectile-globally-ignored-files file)))
 
 ;;----------------------------------------------------------------
 ;; Mac Specific Options, uncomment when using on macOS
@@ -89,7 +99,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(spacemacs-dark))
+ '(custom-enabled-themes '(doom-dracula))
  '(custom-safe-themes
    '("516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"
      "2d74de1cc32d00b20b347f2d0037b945a4158004f99877630afc034a674e3ab7"
@@ -235,27 +245,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(all-the-icons-dired auto-package-update catppuccin-theme cider-hydra
-			 clang-format clj-refactor
-			 clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide company-box
-			 company-prescient consult-lsp dashboard
-			 docker docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes dracula-theme
-			 ef-themes eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck git-gutter-fringe
-			 go-mode gruvbox-theme hugsql-ghosts
-			 kaolin-themes ligature lsp-treemacs lsp-ui
-			 magit-delta marginalia monokai-pro-theme
-			 monokai-theme nord-theme orderless paren-face
-			 rainbow-delimiters rustic smartparens
-			 spacemacs-theme surround suscolors-theme
-			 toml-mode transpose-frame
-			 treemacs-icons-dired treemacs-magit
-			 treemacs-projectile vertico
-			 yasnippet-snippets zenburn-theme)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -939,7 +929,7 @@
 ;; ==========================================================================
 ;;Fira code font
 (set-face-attribute 'default nil
-  :family "Fira Code"
+  :family "Hack Nerd Font"
   :height 110
   :weight 'regular)
 
