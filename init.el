@@ -323,9 +323,9 @@
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
 	lsp-enable-on-type-formatting nil
-	lsp-completion-no-cache t
+	lsp-completion-no-cache nil
 	;; lsp-enable-file-watchers t
-	lsp-idle-delay 0.2
+	lsp-idle-delay 0.1
 	lsp-headerline-breadcrumb-enable t
 	lsp-signature-auto-activate nil)
   :config
@@ -407,7 +407,7 @@
   ;;                     (company-lsp company-yasnippet company-capf)
   ;;                     ))
   ;; The :custom keyword is perfect for setting variables
-  (company-idle-delay 0.15)
+  (company-idle-delay 0)
   (company-minimum-prefix-length 1)
   (company-tooltip-align-annotations t)
   (company-selection-wrap-around t)
@@ -887,19 +887,19 @@
   :hook (cmake-mode . cmake-font-lock-activate))
 
 ;; LSP mode integration for C++
-(use-package lsp-mode
-  :ensure t
-  :hook ((c++-mode . lsp)
-         (c-mode . lsp)
-         (cmake-mode . lsp))
-  :custom
-  (lsp-clients-clangd-args
-   '("--header-insertion=never"
-     "--cross-file-rename"
-     "--clang-tidy"
-     "--completion-style=detailed"))
-  :config
-  (setq lsp-prefer-flymake nil))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :hook ((c++-mode . lsp)
+;;          (c-mode . lsp)
+;;          (cmake-mode . lsp))
+;;   :custom
+;;   (lsp-clients-clangd-args
+;;    '("--header-insertion=never"
+;;      "--cross-file-rename"
+;;      "--clang-tidy"
+;;      "--completion-style=detailed"))
+;;   :config
+;;   (setq lsp-prefer-flymake nil))
 
 ;; LSP UI (already loaded for other languages)
 ;; Will automatically enhance C++ hover docs, references, etc.
