@@ -70,7 +70,8 @@
   (exec-path-from-shell-initialize))
 
 ;;Disable toolbar on top
-(ns-toggle-toolbar nil)
+;; (ns-toggle-toolbar nil)
+(tool-bar-mode -1)
 
 ;; scroll one line at a time (less "jumpy" than defaults)
 
@@ -88,9 +89,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(ef-cyprus))
+ '(custom-enabled-themes '(spacemacs-dark))
  '(custom-safe-themes
-   '("7ec8fd456c0c117c99e3a3b16aaf09ed3fb91879f6601b1ea0eeaee9c6def5d9"
+   '("516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"
+     "2d74de1cc32d00b20b347f2d0037b945a4158004f99877630afc034a674e3ab7"
+     "e39c5b887bfee00097a92c660c7ea4e3d37543be4a638ccc2adceb61ebdf784e"
+     "972f792651d32b0506481b9e87b2fbc9b732ae9da2527562668c6e7d149fefda"
+     "7f94b0f1870fad948de8e98f2c7fcf1d3fe8746c2642f7fed5aa5c93cd142ff0"
+     "7ec8fd456c0c117c99e3a3b16aaf09ed3fb91879f6601b1ea0eeaee9c6def5d9"
      "adbcf269aaae0e40c9d30c244f8a7dc64d4ae719a2ff9e6c46931212cb3d4ee0"
      "5a4cdc4365122d1a17a7ad93b6e3370ffe95db87ed17a38a94713f6ffe0d8ceb"
      "c341518f5a80752f3113699a7f845dfc7299667311858e7cdfe64677d359d87e"
@@ -229,7 +235,27 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages nil))
+ '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
+ '(package-selected-packages
+   '(all-the-icons-dired auto-package-update catppuccin-theme cider-hydra
+			 clang-format clj-refactor
+			 clojure-mode-extra-font-locking
+			 cmake-font-lock cmake-ide company-box
+			 company-prescient consult-lsp dashboard
+			 docker docker-compose-mode dockerfile-mode
+			 doom-modeline doom-themes dracula-theme
+			 ef-themes eval-sexp-fu exec-path-from-shell
+			 expand-region flycheck git-gutter-fringe
+			 go-mode gruvbox-theme hugsql-ghosts
+			 kaolin-themes ligature lsp-treemacs lsp-ui
+			 magit-delta marginalia monokai-pro-theme
+			 monokai-theme nord-theme orderless paren-face
+			 rainbow-delimiters rustic smartparens
+			 spacemacs-theme surround suscolors-theme
+			 toml-mode transpose-frame
+			 treemacs-icons-dired treemacs-magit
+			 treemacs-projectile vertico
+			 yasnippet-snippets zenburn-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -296,7 +322,7 @@
 	lsp-headerline-breadcrumb-enable t
 	lsp-signature-auto-activate nil)
   :config
-  (setq gc-cons-threshold (* 100 1024 1024)
+  (setq gc-cons-threshold (* 300 1024 1024)
                 read-process-output-max (* 1024 1024))
 
   (define-key lsp-mode-map (kbd "C-c l r") #'lsp-workspace-restart)
@@ -349,6 +375,7 @@
   :init
   (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+  (add-hook 'clojurescript-mode-hook #'enable-paredit-mode)
   (add-hook 'lisp-mode-hook #'enable-paredit-mode)
   :bind (:map paredit-mode-map
               ("M-<right>" . paredit-forward-slurp-sexp)
@@ -610,7 +637,7 @@
   :ensure t
   :hook (prog-mode . git-gutter-mode)
   :config
-  (setq git-gutter:update-interval 0.02))
+  (setq git-gutter:update-interval 5))
 
 (use-package git-gutter-fringe
   :ensure t
@@ -905,3 +932,57 @@
                     (format "echo 'No executable found in %s'" build-dir)))
          (full-cmd (format "%s && %s && %s" cmake-cmd build-cmd run-cmd)))
     (compile full-cmd)))
+
+
+;; ==========================================================================
+;;Fira code font
+(set-face-attribute 'default nil
+  :family "Fira Code"
+  :height 110
+  :weight 'regular)
+
+
+(use-package ligature
+  :ensure t
+  :config
+  ;; Enable ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode
+    '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+      "{-" "-}" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+      "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+      "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+      ".-" ".." "..." ".?" ".=" ".-" ".*"
+      "\\\\" "\\\\\\" "\\/" "\\/-" "\\->"
+      "/*" "*/" "/**" "//" "///" "//$"
+      "==" "===" "=>" "=>>" "=/=" "=!=" "=>" ">=" ">-" ">=>" ">>" ">>-" ">>=" ">>>"
+      "<$>" "<$" "<$$" "<*" "<*>" "<+>" "<-" "<--" "<->" "<!--" "<-->" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+      "<~" "<~~" "</" "</>" "</" "</>" "<|" "<|>" "<||" "<||>" "<:" "<::" "<:::"
+      "</" "</>" "<!--" "<!" "<-!" "<->" "<-~" "<~" "<~~" "<$" "<$$" "<+>" "<*>"))
+  (global-ligature-mode t))
+
+
+;; === =======
+;; Nice parens highlight
+;; (use-package highlight-parentheses
+;;   :ensure t
+;;   :hook ((clojure-mode clojurescript-mode emacs-lisp-mode) . highlight-parentheses-mode)
+;;   :config
+;;   ;; Strong visible face - override theme
+;;   (set-face-attribute 'highlight-parentheses-highlight nil
+;;                       :weight 'bold
+;;                       :underline t
+;;                       :background "#3a3f5a")
+;;   )
+
+(use-package paren-face
+  :ensure t
+  :hook (prog-mode . paren-face-mode))
+
+(show-paren-mode 1)
+(setq show-paren-style 'parenthesis)
+
+(set-face-attribute 'show-paren-match nil
+                    :weight 'ultra-bold
+                    :background "#3a3f5a"
+                    :foreground "#ffffff"
+                    :underline t)
