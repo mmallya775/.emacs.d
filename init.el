@@ -584,7 +584,9 @@
   (("C-c t" . treemacs)) ;; Toggle Treemacs
   :config
   ;; Optional quality-of-life tweaks
-  (setq treemacs-width  30) ;; default width (change as desired)
+  (setq treemacs-width  40) ;; default width (change as desired)
+  (setq treemacs-follow-after-init t)
+  (setq treemacs-is-never-other-window t)
   (setq treemacs-recenter-after-file-follow t
         treemacs-recenter-after-tag-follow  t
         treemacs-is-never-other-window     nil))
