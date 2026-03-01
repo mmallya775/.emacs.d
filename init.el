@@ -99,9 +99,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(spacemacs-dark))
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
-   '("516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"
+   '("8fbf2d585f1138caaafa9e523fa3a20614c1d1dcc6002c9808c3e40028e21df4"
+     "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"
      "2d74de1cc32d00b20b347f2d0037b945a4158004f99877630afc034a674e3ab7"
      "e39c5b887bfee00097a92c660c7ea4e3d37543be4a638ccc2adceb61ebdf784e"
      "972f792651d32b0506481b9e87b2fbc9b732ae9da2527562668c6e7d149fefda"
