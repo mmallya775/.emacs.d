@@ -246,23 +246,7 @@
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(all-the-icons-dired auto-package-update cider-hydra clang-format
-			 clj-refactor clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide company-box
-			 company-prescient consult-lsp dashboard
-			 docker docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes ef-themes
-			 eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck git-gutter-fringe
-			 go-mode ligature lsp-treemacs lsp-ui
-			 magit-delta marginalia monokai-pro-theme
-			 monokai-theme orderless paren-face
-			 rainbow-delimiters rustic smartparens
-			 spacemacs-theme surround toml-mode
-			 transpose-frame treemacs-icons-dired
-			 treemacs-magit treemacs-projectile vertico
-			 yasnippet-snippets)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -835,7 +819,8 @@
 	 (rustic-mode . smartparens-mode)
 	 (c++-mode . smartparens-mode)
 	 (c-mode . smartparens-mode)
-	 (cmake-mode . smartparens-mode))
+	 (cmake-mode . smartparens-mode)
+	 (python-mode . smartparens-mode))
   :config
   (require 'smartparens-config))
 
@@ -995,3 +980,24 @@
                     :background "#3a3f5a"
                     :foreground "#ffffff"
                     :underline t)
+
+
+;; Nice markdown stuff
+;; -------------------------------
+;; Markdown
+(use-package markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("README\\.md\\'" . gfm-mode))
+  :init
+  ;; Use GitHub-flavored markdown for README.md by default
+  (setq markdown-command "pandoc"))
+
+
+;; Nice python stuff
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
