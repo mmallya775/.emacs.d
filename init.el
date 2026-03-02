@@ -99,7 +99,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-enabled-themes '(spacemacs-dark))
  '(custom-safe-themes
    '("8fbf2d585f1138caaafa9e523fa3a20614c1d1dcc6002c9808c3e40028e21df4"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"
@@ -1002,3 +1002,16 @@
   :hook (python-mode . (lambda ()
                           (require 'lsp-pyright)
                           (lsp))))  ; or lsp-deferred
+
+
+;; -------------------------------
+;; Python formatting with Ruff (manual: only via M-x)
+
+(use-package reformatter
+  :ensure t)
+
+(use-package ruff-format
+  :ensure t
+  :after reformatter
+  :custom
+  (ruff-format-args '("format")))
