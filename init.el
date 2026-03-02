@@ -1004,14 +1004,3 @@
                           (lsp))))  ; or lsp-deferred
 
 
-;; -------------------------------
-;; Python formatting with Ruff (manual: only via M-x)
-
-(use-package reformatter
-  :ensure t)
-
-(use-package ruff-format
-  :ensure t
-  :after reformatter
-  :custom
-  (ruff-format-args '("format")))
