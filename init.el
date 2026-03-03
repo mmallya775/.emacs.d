@@ -1004,3 +1004,52 @@
                           (lsp))))  ; or lsp-deferred
 
 
+
+(use-package blacken
+  :ensure t
+  :hook (python-mode . blacken-mode)
+  :custom
+  (blacken-line-length 88))
+
+(use-package py-isort
+  :ensure t
+  :hook (before-save . py-isort-before-save))
+
+;; --- Virtualenv management -------------------------------------
+;; Auto-activate venv when you enter a project (works great with projectile)
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode 1))
+
+;; If you use direnv (recommended), Emacs will pick up env vars (incl venv)
+(use-package direnv
+  :ensure t
+  :config
+  (direnv-mode))
+
+(use-package python
+  :ensure nil
+  :hook (python-mode . (lambda ()
+                         (setq-local tab-width 4)
+                         (setq-local python-indent-offset 4))))
+
+;; Optional: docstring helpers, etc.
+(use-package python-docstring
+  :ensure t
+  :hook (python-mode . python-docstring-mode))
+
+;; --- Debugging: dap-mode (optional but powerful) ---------------
+;; Works with lsp-mode and provides debugger UI.
+(use-package dap-mode
+  :ensure t
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode)
+  (require 'dap-python))
+
+;; --- LSP Pyright tweaks ----------------------------------------
+(with-eval-after-load 'lsp-pyright
+  ;; Prefer your project venv; pyright will follow VIRTUAL_ENV / direnv
+  (setq lsp-pyright-auto-import-completions t)
+  (setq lsp-pyright-use-library-code-for-types t))
