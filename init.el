@@ -527,10 +527,18 @@
 
 ;;;; --------------------------------------------------------------------------
 ;;; Magit to handle git stuff
+;; (use-package magit
+;;   :ensure t
+;;   :bind
+;;   ("C-x g" . magit-status))
+;; -- Dont auto wrap
 (use-package magit
   :ensure t
   :bind
-  ("C-x g" . magit-status))
+  ("C-x g" . magit-status)
+  :hook
+  (git-commit-setup . (lambda ()
+                        (auto-fill-mode -1))))
 
 ;; <> Syntax aware diffs
 (use-package magit-delta
