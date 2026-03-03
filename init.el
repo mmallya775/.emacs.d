@@ -98,10 +98,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-show-quick-access t nil nil "Customized with use-package company")
- '(custom-enabled-themes '(spacemacs-dark))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("8fbf2d585f1138caaafa9e523fa3a20614c1d1dcc6002c9808c3e40028e21df4"
+   '("c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
+     "d89e15a34261019eec9072575d8a924185c27d3da64899905f8548cbd9491a36"
+     "833ddce3314a4e28411edf3c6efde468f6f2616fc31e17a62587d6a9255f4633"
+     "7fea145741b3ca719ae45e6533ad1f49b2a43bf199d9afaee5b6135fd9e6f9b8"
+     "8fbf2d585f1138caaafa9e523fa3a20614c1d1dcc6002c9808c3e40028e21df4"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"
      "2d74de1cc32d00b20b347f2d0037b945a4158004f99877630afc034a674e3ab7"
      "e39c5b887bfee00097a92c660c7ea4e3d37543be4a638ccc2adceb61ebdf784e"
@@ -246,8 +249,26 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(all-the-icons-dired apheleia auto-package-update blacken
+			 catppuccin-theme cider-hydra clang-format
+			 clj-refactor clojure-mode-extra-font-locking
+			 cmake-font-lock cmake-ide company-box
+			 company-prescient consult-lsp dap-mode
+			 dashboard direnv docker docker-compose-mode
+			 dockerfile-mode doom-modeline doom-themes
+			 ef-themes envrc eval-sexp-fu
+			 exec-path-from-shell expand-region flycheck
+			 git-gutter-fringe go-mode ligature
+			 lsp-pyright lsp-ui magit-delta marginalia
+			 monokai-pro-theme monokai-theme orderless
+			 paren-face py-isort python-docstring
+			 python-pytest pyvenv rainbow-delimiters
+			 rainbow-mode rustic smartparens
+			 spacemacs-theme surround toml-mode
+			 transpose-frame treemacs-icons-dired
+			 treemacs-magit treemacs-projectile vertico
+			 yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -827,12 +848,12 @@
 
 
 
-;; (use-package catppuccin-theme
-;;   :ensure t
-;;   :config
-;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-;;   (setq catppuccin-flavor 'mocha)
-;;   (load-theme 'catppuccin t))
+(use-package catppuccin-theme
+  :ensure t
+  :config
+  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'mocha)
+  (load-theme 'catppuccin t))
 
 
 
@@ -1053,3 +1074,23 @@
   ;; Prefer your project venv; pyright will follow VIRTUAL_ENV / direnv
   (setq lsp-pyright-auto-import-completions t)
   (setq lsp-pyright-use-library-code-for-types t))
+
+
+;; --- Nice highlighting stuff
+(use-package symbol-overlay
+  :ensure t
+  :hook ((prog-mode . symbol-overlay-mode)
+         (text-mode . symbol-overlay-mode))
+  :bind (:map symbol-overlay-mode-map
+              ;; highlight at point (sticky)
+              ("C-c o h" . symbol-overlay-put)
+              ;; remove highlight at point
+              ("C-c o d" . symbol-overlay-remove)
+              ;; remove all highlights
+              ("C-c o c" . symbol-overlay-remove-all)
+              ;; navigate between matches
+              ("C-c o n" . symbol-overlay-jump-next)
+              ("C-c o p" . symbol-overlay-jump-prev))
+  :config
+  ;; optional: nicer behavior
+  (setq symbol-overlay-idle-time 0.3))
