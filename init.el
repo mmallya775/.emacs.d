@@ -1179,18 +1179,18 @@
 ;; ------------------------------------------------------------------
 ;; Dimmer - dim inactive windows
 
-(use-package dimmer
-  :ensure t
-  :custom
-  (dimmer-fraction 0.3)
-  (dimmer-adjustment-mode :foreground)
-  (dimmer-use-colorspace :rgb)
-  :config
-  ;; Don't dim these buffers
-  (dimmer-configure-which-key)
-  (dimmer-configure-magit)
-  (dimmer-configure-posframe)
-  (dimmer-mode 1))
+;; (use-package dimmer
+;;   :ensure t
+;;   :custom
+;;   (dimmer-fraction 0.3)
+;;   (dimmer-adjustment-mode :foreground)
+;;   (dimmer-use-colorspace :rgb)
+;;   :config
+;;   ;; Don't dim these buffers
+;;   (dimmer-configure-which-key)
+;;   (dimmer-configure-magit)
+;;   (dimmer-configure-posframe)
+;;   (dimmer-mode 1))
 
 ;; ------------------------------------------------------------------
 ;; Vterm - proper terminal inside Emacs
