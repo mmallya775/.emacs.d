@@ -1156,8 +1156,4 @@
   (vterm-toggle-fullscreen-p nil)
   (vterm-toggle-scope 'project)
   :config
-  (setq vterm-toggle-cd-auto-create-buffer t)
-  (add-hook 'vterm-toggle-show-hook
-            (lambda ()
-              (when-let ((root (projectile-project-root)))
-                (vterm-send-string (format "cd %s\n" root))))))
+  (setq vterm-toggle-cd-auto-create-buffer t))
