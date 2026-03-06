@@ -98,6 +98,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(company-show-quick-access t nil nil "Customized with use-package company")
  '(custom-enabled-themes nil)
  '(custom-safe-themes
    '("c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
@@ -249,26 +250,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages
-   '(all-the-icons-dired apheleia auto-package-update blacken
-			 catppuccin-theme cider-hydra clang-format
-			 clj-refactor clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide company-box
-			 company-prescient consult-lsp dap-mode
-			 dashboard direnv docker docker-compose-mode
-			 dockerfile-mode doom-modeline doom-themes
-			 ef-themes envrc eval-sexp-fu
-			 exec-path-from-shell expand-region flycheck
-			 git-gutter-fringe go-mode ligature
-			 lsp-pyright lsp-ui magit-delta marginalia
-			 monokai-pro-theme monokai-theme orderless
-			 paren-face py-isort python-docstring
-			 python-pytest pyvenv rainbow-delimiters
-			 rainbow-mode rustic smartparens
-			 spacemacs-theme surround toml-mode
-			 transpose-frame treemacs-icons-dired
-			 treemacs-magit treemacs-projectile vertico
-			 yasnippet-snippets)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -287,6 +269,7 @@
   (setq cider-repl-use-pretty-printing t)
   (setq cider-repl-use-clojure-font-lock t)
   (setq cider-repl-result-prefix ";; => ")
+  (setq cider-repl-history-file "~/.cider-repl-history")
   (setq cider-eval-spinner-type 'vertical-breathing))
 
 
@@ -311,6 +294,7 @@
 
 (use-package clj-refactor
   :ensure t
+  :hook (clojure-mode . clj-refactor-mode)
   :init
   (setq cljr-add-ns-to-blank-clj-files nil)
   (cljr-add-keybindings-with-prefix "C-c C-r"))
@@ -346,12 +330,16 @@
         (lsp-gopls-staticcheck t)   ;; enable extra analysis
         (lsp-gopls-complete-unimported t)
         (lsp-gopls-use-placeholders t)
-  :hook ((clojure-mode . lsp)
-	 (clojurescript-mode . lsp)
-         (clojurec-mode . lsp)
-         (lisp-mode . lsp)
-	 (go-mode . lsp)
-	 (rustic-mode . lsp)))
+	;; (lsp-clojure-custom-settings 
+        ;;     '(:dependency-scheme "jar"
+        ;;       :java-home "/path/to/your/jdk" ;; Ensure this points to a Full JDK, not a JRE
+        ;;       :show-docs-arity-on-same-line? t))
+	:hook ((clojure-mode . lsp)
+	       (clojurescript-mode . lsp)
+               (clojurec-mode . lsp)
+               (lisp-mode . lsp)
+	       (go-mode . lsp)
+	       (rustic-mode . lsp)))
 
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
@@ -521,9 +509,9 @@
         #'consult-completion-in-region))
 
 ;;<> Consult-lsp
-(use-package consult-lsp
-  :ensure t
-  :after (consult lsp-mode)) ;; references at point
+;; (use-package consult-lsp
+;;   :ensure t
+;;   :after (consult lsp-mode)) ;; references at point
 
 ;;;; --------------------------------------------------------------------------
 ;;; Magit to handle git stuff
@@ -960,10 +948,10 @@
 
 ;; ==========================================================================
 ;;Fira code font
-(set-face-attribute 'default nil
-  :family "Hack Nerd Font"
-  :height 110
-  :weight 'regular)
+;; (set-face-attribute 'default nil
+;;   :family "Hack Nerd Font"
+;;   :height 110
+;;   :weight 'regular)
 
 
 (use-package ligature
@@ -1102,3 +1090,74 @@
   :config
   ;; optional: nicer behavior
   (setq symbol-overlay-idle-time 0.3))
+
+
+;; ------------------------------------------------------------------
+;; Ace window for faster window jumping
+
+(use-package ace-window
+  :ensure t
+  :bind ("M-o" . ace-window)
+  :custom
+  (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (aw-scope 'frame)
+  (aw-dispatch-always nil))
+
+
+;; ------------------------------------------------------------------
+;; Deadgrep - better ripgrep frontend
+
+(use-package deadgrep
+  :ensure t
+  :bind ("C-c s d" . deadgrep))
+
+
+;; ------------------------------------------------------------------
+;; Multiple cursors
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C->"           . mc/mark-next-like-this)
+         ("C-<"           . mc/mark-previous-like-this)
+         ("C-c C-<"       . mc/mark-all-like-this)
+         ("C-S-c C-S-c"   . mc/edit-lines)))
+
+
+;; ------------------------------------------------------------------
+;; Dimmer - dim inactive windows
+
+(use-package dimmer
+  :ensure t
+  :custom
+  (dimmer-fraction 0.3)
+  (dimmer-adjustment-mode :foreground)
+  (dimmer-use-colorspace :rgb)
+  :config
+  ;; Don't dim these buffers
+  (dimmer-configure-which-key)
+  (dimmer-configure-magit)
+  (dimmer-configure-posframe)
+  (dimmer-mode 1))
+
+;; ------------------------------------------------------------------
+;; Vterm - proper terminal inside Emacs
+
+(use-package vterm
+  :ensure t
+  :custom
+  (vterm-max-scrollback 10000)
+  (vterm-buffer-name-string "vterm %s"))
+
+(use-package vterm-toggle
+  :ensure t
+  :after vterm
+  :bind ("C-c v" . vterm-toggle)
+  :custom
+  (vterm-toggle-fullscreen-p nil)
+  (vterm-toggle-scope 'project)
+  :config
+  (setq vterm-toggle-cd-auto-create-buffer t)
+  (add-hook 'vterm-toggle-show-hook
+            (lambda ()
+              (when-let ((root (projectile-project-root)))
+                (vterm-send-string (format "cd %s\n" root))))))
