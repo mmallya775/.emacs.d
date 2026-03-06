@@ -695,25 +695,20 @@
 
 (use-package dashboard
   :ensure t
+  :after all-the-icons
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-items '((recents  . 7)
+  (setq dashboard-items '((recents  . 5)
                            (projects . 5)
-                           (bookmarks . 3)))
+                           (bookmarks . 5)
+			   (agenda . 5)))
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-center-content t)
   (setq dashboard-vertically-center-content t)
-  (setq dashboard-icon-type 'all-the-icons)
+  (setq dashboard-icon-type 'nerd-icons)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-show-shortcuts t)
-  (setq dashboard-navigator-buttons
-        `(((,(all-the-icons-octicon "tools" :height 1.1 :v-adjust 0.0)
-            "Config" "Open init.el"
-            (lambda (&rest _) (find-file "~/.emacs.d/init.el")))
-           (,(all-the-icons-faicon "folder" :height 1.1 :v-adjust 0.0)
-            "Projects" "Switch project"
-            (lambda (&rest _) (projectile-switch-project)))))))
+  (setq dashboard-show-shortcuts t))
 
 ;; (use-package dashboard
 ;;   :ensure t
