@@ -250,7 +250,28 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(all-the-icons-dired apheleia auto-package-update blacken
+			 browse-kill-ring catppuccin-theme cider-hydra
+			 clang-format clj-refactor
+			 clojure-mode-extra-font-locking
+			 cmake-font-lock cmake-ide company-box
+			 company-prescient consult-lsp dap-mode
+			 dashboard deadgrep dimmer direnv docker
+			 docker-compose-mode dockerfile-mode
+			 doom-modeline doom-themes ef-themes envrc
+			 eval-sexp-fu exec-path-from-shell
+			 expand-region flycheck git-gutter-fringe
+			 go-mode ligature lsp-pyright lsp-ui
+			 magit-delta marginalia monokai-pro-theme
+			 monokai-theme orderless paren-face py-isort
+			 python-docstring python-pytest pyvenv
+			 rainbow-delimiters rainbow-mode rustic
+			 smartparens spacemacs-theme surround
+			 symbol-overlay toml-mode transpose-frame
+			 treemacs-icons-dired treemacs-magit
+			 treemacs-projectile undo-tree vertico
+			 vterm-toggle yasnippet-snippets)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -666,16 +687,38 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook)
-  (setq dashboard-items '((recents  . 5)
-                         (bookmarks . 5)
-                         (projects . 5)
-                         (agenda . 5)))
-  ;; Configure the appearance
+  (setq dashboard-items '((recents  . 7)
+                           (projects . 5)
+                           (bookmarks . 3)))
   (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
   (setq dashboard-icon-type 'all-the-icons)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-show-shortcuts t))
+  (setq dashboard-show-shortcuts t)
+  (setq dashboard-navigator-buttons
+        `(((,(all-the-icons-octicon "tools" :height 1.1 :v-adjust 0.0)
+            "Config" "Open init.el"
+            (lambda (&rest _) (find-file "~/.emacs.d/init.el")))
+           (,(all-the-icons-faicon "folder" :height 1.1 :v-adjust 0.0)
+            "Projects" "Switch project"
+            (lambda (&rest _) (projectile-switch-project)))))))
+
+;; (use-package dashboard
+;;   :ensure t
+;;   :config
+;;   (dashboard-setup-startup-hook)
+;;   (setq dashboard-items '((recents  . 5)
+;;                          (bookmarks . 5)
+;;                          (projects . 5)
+;;                          (agenda . 5)))
+;;   ;; Configure the appearance
+;;   (setq dashboard-startup-banner 'logo)
+;;   (setq dashboard-icon-type 'all-the-icons)
+;;   (setq dashboard-set-heading-icons t)
+;;   (setq dashboard-set-file-icons t)
+;;   (setq dashboard-show-shortcuts t))
 
 
 
@@ -1157,3 +1200,27 @@
   (vterm-toggle-scope 'project)
   :config
   (setq vterm-toggle-cd-auto-create-buffer t))
+
+
+;;; -----------------------------------------
+;; Undo tree
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  :custom
+  (undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo-tree-history"))))
+
+
+;;; Browse killring easy
+(use-package browse-kill-ring
+  :ensure t
+  :bind ("M-y" . browse-kill-ring))
+
+
+
+;;; Avy jumping
+(use-package avy
+  :ensure t
+  :bind (("M-g c" . avy-goto-char-2)
+         ("M-g l" . avy-goto-line)))
