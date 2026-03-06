@@ -263,12 +263,13 @@
 			 eval-sexp-fu exec-path-from-shell
 			 expand-region flycheck git-gutter-fringe
 			 go-mode ligature lsp-pyright lsp-ui
-			 magit-delta marginalia monokai-pro-theme
-			 monokai-theme orderless paren-face py-isort
-			 python-docstring python-pytest pyvenv
-			 rainbow-delimiters rainbow-mode rustic
-			 smartparens spacemacs-theme surround
-			 symbol-overlay toml-mode transpose-frame
+			 magit-delta magit-todos marginalia
+			 monokai-pro-theme monokai-theme orderless
+			 paren-face py-isort python-docstring
+			 python-pytest pyvenv rainbow-delimiters
+			 rainbow-mode rustic smartparens
+			 spacemacs-theme surround symbol-overlay
+			 toml-mode transpose-frame
 			 treemacs-icons-dired treemacs-magit
 			 treemacs-projectile undo-tree vertico
 			 vterm-toggle yasnippet-snippets)))
@@ -288,6 +289,8 @@
   :config
   (define-key cider-mode-map (kbd "C-M-x") 'cider-eval-dwim)
   (setq cider-repl-use-pretty-printing t)
+  (setq cider-repl-wrap-history t)
+  (setq cider-repl-history-size 3000)
   (setq cider-repl-use-clojure-font-lock t)
   (setq cider-repl-result-prefix ";; => ")
   (setq cider-repl-history-file "~/.cider-repl-history")
@@ -298,7 +301,14 @@
   :ensure t
   :init
   ;; Disable auto ns template insertion (clojure-lsp will handle it)
-  (setq clojure-insert-namespace-template nil))
+  (setq clojure-insert-namespace-template nil)
+  :config
+  (define-clojure-indent
+   (reg-sub '(1))
+   (reg-event-db '(1))
+   (reg-event-fx '(1))
+   (reg-fx '(1))
+   (reg-cofx '(1))))
 
 ;;<> Better sexp evals
 
@@ -1224,3 +1234,21 @@
   :ensure t
   :bind (("M-g c" . avy-goto-char-2)
          ("M-g l" . avy-goto-line)))
+
+
+;;; Show TODO in magit status
+(use-package magit-todos
+  :ensure t
+  :after magit
+  :config
+  (magit-todos-mode 1))
+
+
+;; Visit recent files
+(use-package recentf
+  :config
+  (recentf-mode 1)
+  (setq recentf-max-saved-items 500)
+  (setq recentf-max-menu-items 60))
+
+
