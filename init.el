@@ -1,8 +1,7 @@
 ;; Emacs setup
 
 (require 'package)
-(add-to-list 'package-archives '(("melpa" . "https://melpa.org/packages/")
-				 ("org" . "https://orgmode.org/elpa/")) t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -250,29 +249,7 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages
-   '(all-the-icons-dired apheleia auto-package-update blacken
-			 browse-kill-ring catppuccin-theme cider-hydra
-			 clang-format clj-refactor
-			 clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide company-box
-			 company-prescient consult-lsp dap-mode
-			 dashboard deadgrep dimmer direnv docker
-			 docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes
-			 ef-themes envrc eval-sexp-fu
-			 exec-path-from-shell expand-region flycheck
-			 git-gutter-fringe go-mode ligature
-			 lsp-pyright lsp-ui magit-delta magit-todos
-			 marginalia monokai-pro-theme monokai-theme
-			 orderless paren-face py-isort
-			 python-docstring python-pytest pyvenv
-			 rainbow-delimiters rainbow-mode rustic
-			 smartparens spacemacs-theme surround
-			 symbol-overlay toml-mode transpose-frame
-			 treemacs-icons-dired treemacs-magit
-			 treemacs-projectile undo-tree vertico
-			 vterm-toggle yasnippet-snippets)))
+ '(package-selected-packages nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
