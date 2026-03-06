@@ -1,7 +1,8 @@
 ;; Emacs setup
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '(("melpa" . "https://melpa.org/packages/")
+				 ("org" . "https://orgmode.org/elpa/")) t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -98,7 +99,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-show-quick-access t nil nil "Customized with use-package company")
  '(custom-enabled-themes nil)
  '(custom-safe-themes
    '("c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
@@ -259,17 +259,17 @@
 			 company-prescient consult-lsp dap-mode
 			 dashboard deadgrep dimmer direnv docker
 			 docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes ef-themes envrc
-			 eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck git-gutter-fringe
-			 go-mode ligature lsp-pyright lsp-ui
-			 magit-delta magit-todos marginalia
-			 monokai-pro-theme monokai-theme orderless
-			 paren-face py-isort python-docstring
-			 python-pytest pyvenv rainbow-delimiters
-			 rainbow-mode rustic smartparens
-			 spacemacs-theme surround symbol-overlay
-			 toml-mode transpose-frame
+			 doom-modeline doom-themes
+			 ef-themes envrc eval-sexp-fu
+			 exec-path-from-shell expand-region flycheck
+			 git-gutter-fringe go-mode ligature
+			 lsp-pyright lsp-ui magit-delta magit-todos
+			 marginalia monokai-pro-theme monokai-theme
+			 orderless paren-face py-isort
+			 python-docstring python-pytest pyvenv
+			 rainbow-delimiters rainbow-mode rustic
+			 smartparens spacemacs-theme surround
+			 symbol-overlay toml-mode transpose-frame
 			 treemacs-icons-dired treemacs-magit
 			 treemacs-projectile undo-tree vertico
 			 vterm-toggle yasnippet-snippets)))
@@ -594,7 +594,7 @@
   :init
   (doom-modeline-mode 1)
   :custom
-  (doom-modeline-height 15)
+  (doom-modeline-height 25)
   (doom-modeline-major-mode-icon t)
   (doom-modeline-enable-word-count t)
   (doom-modeline-buffer-file-name-style 'file-name-with-project))
@@ -709,23 +709,6 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-show-shortcuts t))
-
-;; (use-package dashboard
-;;   :ensure t
-;;   :config
-;;   (dashboard-setup-startup-hook)
-;;   (setq dashboard-items '((recents  . 5)
-;;                          (bookmarks . 5)
-;;                          (projects . 5)
-;;                          (agenda . 5)))
-;;   ;; Configure the appearance
-;;   (setq dashboard-startup-banner 'logo)
-;;   (setq dashboard-icon-type 'all-the-icons)
-;;   (setq dashboard-set-heading-icons t)
-;;   (setq dashboard-set-file-icons t)
-;;   (setq dashboard-show-shortcuts t))
-
-
 
 
 ;;; --------------------------------------------------------------------
