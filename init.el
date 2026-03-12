@@ -338,6 +338,11 @@
         (lsp-gopls-staticcheck t)   ;; enable extra analysis
         (lsp-gopls-complete-unimported t)
         (lsp-gopls-use-placeholders t)
+	(lsp-clients-clangd-args
+	 '("--header-insertion=never"
+	   "--cross-file-rename"
+	   "--clang-tidy"
+	   "--completion-style=detailed"))
 	;; (lsp-clojure-custom-settings 
         ;;     '(:dependency-scheme "jar"
         ;;       :java-home "/path/to/your/jdk" ;; Ensure this points to a Full JDK, not a JRE
@@ -347,7 +352,10 @@
                (clojurec-mode . lsp)
                (lisp-mode . lsp)
 	       (go-mode . lsp)
-	       (rustic-mode . lsp)))
+	       (rustic-mode . lsp)
+	       (c-mode . lsp)
+	       (c++-mode . lsp)
+	       (cmake-mode . lsp)))
 
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
@@ -734,7 +742,7 @@
   :ensure t
   :config
   (setq auto-package-update-delete-old-versions t
-        auto-package-update-interval 3) 
+        auto-package-update-interval 7) 
   (auto-package-update-maybe))
 
 
@@ -956,10 +964,10 @@
 
 ;; ==========================================================================
 ;;Fira code font
-;; (set-face-attribute 'default nil
-;;   :family "Hack Nerd Font"
-;;   :height 110
-;;   :weight 'regular)
+(set-face-attribute 'default nil
+  :family "JetBrainsMono Nerd Font"
+  :height 110
+  :weight 'regular)
 
 
 (use-package ligature
