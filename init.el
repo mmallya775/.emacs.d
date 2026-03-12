@@ -357,6 +357,9 @@
 	       (c++-mode . lsp)
 	       (cmake-mode . lsp)))
 
+(with-eval-after-load 'lsp-mode
+  (setq lsp-enable-on-type-formatting nil))
+
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
 ;; (with-eval-after-load 'clojure-mode
