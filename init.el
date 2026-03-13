@@ -894,12 +894,22 @@
 ;; Major mode for Go
 (use-package go-mode
   :ensure t
-  :hook ((go-mode . lsp)
-         (before-save . gofmt-before-save))
+  :hook ((before-save . gofmt-before-save))
   :config
   ;; Use goimports instead of gofmt if available
   (setq gofmt-command "goimports"))
 
+
+(use-package gotest
+  :ensure t
+  :after go-mode
+  :bind (:map go-mode-map
+              ("C-c t t" . go-test-current-test)
+              ("C-c t f" . go-test-current-file)
+              ("C-c t p" . go-test-current-project)))
+
+(with-eval-after-load 'dap-mode
+  (require 'dap-dlv-go))
 
 ;; Smartparens for selected languages
 (use-package smartparens
