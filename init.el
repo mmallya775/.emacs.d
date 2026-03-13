@@ -316,7 +316,7 @@
   :init
   ;; set prefix for lsp-mode commands
   (setq lsp-keymap-prefix "C-c l"
-	company-minimum-prefix-length 1
+	;; company-minimum-prefix-length 1
 	lsp-enable-snippet t
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
@@ -325,7 +325,10 @@
 	;; lsp-enable-file-watchers t
 	lsp-idle-delay 0.1
 	lsp-headerline-breadcrumb-enable t
-	lsp-signature-auto-activate nil)
+	lsp-signature-auto-activate nil
+	lsp-completion-provider :none
+	lsp-completion-enable-additional-text-edit t
+        lsp-enable-completion-at-point t)
   :config
   (setq gc-cons-threshold (* 300 1024 1024)
                 read-process-output-max (* 1024 1024))
@@ -343,10 +346,9 @@
 	   "--cross-file-rename"
 	   "--clang-tidy"
 	   "--completion-style=detailed"))
-	;; (lsp-clojure-custom-settings 
-        ;;     '(:dependency-scheme "jar"
-        ;;       :java-home "/path/to/your/jdk" ;; Ensure this points to a Full JDK, not a JRE
-        ;;       :show-docs-arity-on-same-line? t))
+	(lsp-clojure-custom-settings 
+            '(:dependency-scheme "jar"
+              :show-docs-arity-on-same-line? t))
 	:hook ((clojure-mode . lsp)
 	       (clojurescript-mode . lsp)
                (clojurec-mode . lsp)
@@ -356,9 +358,6 @@
 	       (c-mode . lsp)
 	       (c++-mode . lsp)
 	       (cmake-mode . lsp)))
-
-(with-eval-after-load 'lsp-mode
-  (setq lsp-enable-on-type-formatting nil))
 
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
@@ -406,58 +405,111 @@
 
 
 ;;;------------------------------------------------------------
-;; Company mode for the suggestions and completions
+;; Company mode for the suggestions and completions (apparently corfu is better so commenting this out 2026-03-13)
 
-(use-package company
+;; (use-package company
+;;   :ensure t
+;;   :init
+;;   ;; The :init keyword is for code that needs to run before the package is loaded.
+;;   ;; We can enable global-company-mode here, as it's a very light operation.
+;;   (global-company-mode 1)
+;;   :custom
+;;   ;; ;; Disabling the grammar autocomplete
+;;   ;; (company-backends '(
+;;   ;;                     (company-lsp company-yasnippet company-capf)
+;;   ;;                     ))
+;;   ;; The :custom keyword is perfect for setting variables
+;;   (company-idle-delay 0)
+;;   (company-minimum-prefix-length 1)
+;;   (company-tooltip-align-annotations t)
+;;   (company-selection-wrap-around t)
+;;   (company-show-numbers t)
+;;   (company-dabbrev-downcase nil)
+;;   (company-require-match nil)
+;;   :config
+;;   ;; The :config keyword runs after the package has been loaded.
+;;   ;; This is where you put package-specific function calls and keybindings.
+;;   (when (fboundp 'company-tng-configure-default)
+;;     (company-tng-configure-default))
+;;   :bind
+;;   ;; The :bind keyword provides a clean, declarative way to set keybindings.
+;;   (:map company-active-map
+;;         ("C-n" . company-select-next)
+;;         ("C-p" . company-select-previous)
+;;         ("<tab>" . company-complete-selection)
+;;         ("TAB" . company-indent-or-complete-common)
+;;         ("C-s" . company-filter-candidates)
+;;         ("C-d" . company-show-doc-buffer))
+;;   (:map global-map
+;;         ("M-/" . company-complete)))
+
+;; ;;;!!! Experimental stuff for better sorting and fuzziness
+;; (use-package prescient
+;;   :ensure t
+;;   :config
+;;   (prescient-persist-mode 1))
+
+;; (use-package company-prescient
+;;   :ensure t
+;;   :config
+;;   (company-prescient-mode 1))
+
+;; ;;<> Better UI for company mode
+;; (use-package company-box
+;;   :hook (company-mode . company-box-mode))
+
+;; ------------------------------------------------------------
+;; CORFU - modern in-buffer completion
+;; ------------------------------------------------------------
+
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-auto t)                    ;; auto popup
+  (corfu-auto-delay 0.1)            ;; slight delay to avoid jitter while typing
+  (corfu-auto-prefix 1)             ;; start completing after 1 char
+  (corfu-cycle t)                   ;; wrap around candidates
+  (corfu-preselect 'first)         ;; don't auto-select first candidate
+  (corfu-quit-no-match 'separator)  ;; quit if no match
+  (corfu-scroll-margin 3)
+  :bind (:map corfu-map
+              ("C-n"   . corfu-next)
+              ("C-p"   . corfu-previous)
+              ("<tab>" . corfu-insert)
+              ("C-g"   . corfu-quit)
+              ("M-d"   . corfu-show-documentation))
+  :init
+  (global-corfu-mode)
+  (corfu-popupinfo-mode)
+  :config
+  (setq corfu-popupinfo-delay '(0.5 . 0.2)))
+
+;; Corfu in terminal (if you ever use Emacs -nw)
+(use-package corfu-terminal
+  :ensure t
+  :unless (display-graphic-p)
+  :config
+  (corfu-terminal-mode +1))
+
+;; Icons in the popup (replaces company-box icons)
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default)
+  (kind-icon-blend-background nil)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+;; Cape - completion-at-point extensions (feeds extra sources into corfu)
+;; Gives you file path completion, dabbrev, etc. on top of LSP
+(use-package cape
   :ensure t
   :init
-  ;; The :init keyword is for code that needs to run before the package is loaded.
-  ;; We can enable global-company-mode here, as it's a very light operation.
-  (global-company-mode 1)
-  :custom
-  ;; ;; Disabling the grammar autocomplete
-  ;; (company-backends '(
-  ;;                     (company-lsp company-yasnippet company-capf)
-  ;;                     ))
-  ;; The :custom keyword is perfect for setting variables
-  (company-idle-delay 0)
-  (company-minimum-prefix-length 1)
-  (company-tooltip-align-annotations t)
-  (company-selection-wrap-around t)
-  (company-show-numbers t)
-  (company-dabbrev-downcase nil)
-  (company-require-match nil)
-  :config
-  ;; The :config keyword runs after the package has been loaded.
-  ;; This is where you put package-specific function calls and keybindings.
-  (when (fboundp 'company-tng-configure-default)
-    (company-tng-configure-default))
-  :bind
-  ;; The :bind keyword provides a clean, declarative way to set keybindings.
-  (:map company-active-map
-        ("C-n" . company-select-next)
-        ("C-p" . company-select-previous)
-        ("<tab>" . company-complete-selection)
-        ("TAB" . company-indent-or-complete-common)
-        ("C-s" . company-filter-candidates)
-        ("C-d" . company-show-doc-buffer))
-  (:map global-map
-        ("M-/" . company-complete)))
-
-;;;!!! Experimental stuff for better sorting and fuzziness
-(use-package prescient
-  :ensure t
-  :config
-  (prescient-persist-mode 1))
-
-(use-package company-prescient
-  :ensure t
-  :config
-  (company-prescient-mode 1))
-
-;;<> Better UI for company mode
-(use-package company-box
-  :hook (company-mode . company-box-mode))
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  :bind ("M-/" . cape-dabbrev))  ;; preserves your muscle memory for M-/
 
 ;; ---------------------------------------------------------------------------
 ;; Flycheck for syntax checking on the fly
