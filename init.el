@@ -469,7 +469,7 @@
   (corfu-auto-delay 0.1)            ;; slight delay to avoid jitter while typing
   (corfu-auto-prefix 1)             ;; start completing after 1 char
   (corfu-cycle t)                   ;; wrap around candidates
-  (corfu-preselect 'first)         ;; don't auto-select first candidate
+  (corfu-preselect 'prompt)         ;; don't auto-select first candidate
   (corfu-quit-no-match 'separator)  ;; quit if no match
   (corfu-scroll-margin 3)
   :bind (:map corfu-map
