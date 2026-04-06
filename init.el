@@ -98,7 +98,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-palenight))
+ '(custom-enabled-themes '(doom-solarized-dark))
  '(custom-safe-themes
    '("2f8af2a3a2fae6b6ea254e7aab6f3a8b5c936428b67869cef647c5f8e7985877"
      "c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
@@ -251,7 +251,28 @@
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons-dired auto-package-update blacken browse-kill-ring
+			 cape catppuccin-theme cider-hydra
+			 clang-format clj-refactor
+			 clojure-mode-extra-font-locking
+			 cmake-font-lock cmake-ide company-box
+			 company-prescient consult-lsp corfu-terminal
+			 dap-mode dashboard deadgrep direnv docker
+			 docker-compose-mode dockerfile-mode
+			 doom-modeline doom-themes ef-themes
+			 eval-sexp-fu exec-path-from-shell
+			 expand-region flycheck git-gutter-fringe
+			 go-mode kind-icon ligature lsp-pyright lsp-ui
+			 magit-delta magit-todos marginalia
+			 monokai-pro-theme monokai-theme orderless
+			 paren-face py-isort python-docstring pyvenv
+			 rainbow-delimiters rustic smartparens
+			 solarized-theme surround symbol-overlay
+			 toml-mode transpose-frame
+			 treemacs-icons-dired treemacs-magit
+			 treemacs-projectile undo-tree vertico
+			 vterm-toggle yasnippet-snippets))
  '(safe-local-variable-values
    '((eval progn
 	   (make-variable-buffer-local
