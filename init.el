@@ -98,9 +98,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes '(doom-palenight))
  '(custom-safe-themes
-   '("c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
+   '("2f8af2a3a2fae6b6ea254e7aab6f3a8b5c936428b67869cef647c5f8e7985877"
+     "c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
      "d89e15a34261019eec9072575d8a924185c27d3da64899905f8548cbd9491a36"
      "833ddce3314a4e28411edf3c6efde468f6f2616fc31e17a62587d6a9255f4633"
      "7fea145741b3ca719ae45e6533ad1f49b2a43bf199d9afaee5b6135fd9e6f9b8"
@@ -249,7 +250,14 @@
      "5c8a1b64431e03387348270f50470f64e28dfae0084d33108c33a81c1e126ad6"
      "4d5d11bfef87416d85673947e3ca3d3d5d985ad57b02a7bb2e32beaf785a100e"
      default))
- '(package-selected-packages nil))
+ '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
+ '(package-selected-packages nil)
+ '(safe-local-variable-values
+   '((eval progn
+	   (make-variable-buffer-local
+	    'cider-jack-in-nrepl-middlewares)
+	   (add-to-list 'cider-jack-in-nrepl-middlewares
+			"shadow.cljs.devtools.server.nrepl/middleware")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -928,12 +936,12 @@
 
 
 
-(use-package catppuccin-theme
-  :ensure t
-  :config
-  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-  (setq catppuccin-flavor 'mocha)
-  (load-theme 'catppuccin t))
+;; (use-package catppuccin-theme
+;;   :ensure t
+;;   :config
+;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+;;   (setq catppuccin-flavor 'mocha)
+;;   (load-theme 'catppuccin t))
 
 
 
@@ -1033,9 +1041,9 @@
 ;; ==========================================================================
 ;;Fira code font
 (set-face-attribute 'default nil
-  :family "JetBrainsMono Nerd Font"
-  :height 110
-  :weight 'regular)
+  :family "FiraCode Nerd Font"
+  :height 120
+  :weight 'medium)
 
 
 (use-package ligature
