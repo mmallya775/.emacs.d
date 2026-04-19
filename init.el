@@ -98,7 +98,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(ef-cyprus))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
    '("830877f4aab227556548dc0a28bf395d0abe0e3a0ab95455731c9ea5ab5fe4e1"
      "dc8d63cd0514d058bdf34774163709834519350c1a80dc04deaa58085a8810a5"
@@ -965,12 +965,12 @@
 
 
 
-;; (use-package catppuccin-theme
-;;   :ensure t
-;;   :config
-;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-;;   (setq catppuccin-flavor 'mocha)
-;;   (load-theme 'catppuccin t))
+(use-package catppuccin-theme
+  :ensure t
+  :config
+  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'macchiato)
+  (load-theme 'catppuccin t))
 
 
 
