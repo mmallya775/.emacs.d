@@ -98,9 +98,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(doom-solarized-dark))
+ '(custom-enabled-themes '(ef-cyprus))
  '(custom-safe-themes
-   '("2f8af2a3a2fae6b6ea254e7aab6f3a8b5c936428b67869cef647c5f8e7985877"
+   '("830877f4aab227556548dc0a28bf395d0abe0e3a0ab95455731c9ea5ab5fe4e1"
+     "dc8d63cd0514d058bdf34774163709834519350c1a80dc04deaa58085a8810a5"
+     "7771c8496c10162220af0ca7b7e61459cb42d18c35ce272a63461c0fc1336015"
+     "38b43b865e2be4fe80a53d945218318d0075c5e01ddf102e9bec6e90d57e2134"
+     "d481904809c509641a1a1f1b1eb80b94c58c210145effc2631c1a7f2e4a2fdf4"
+     "2f8af2a3a2fae6b6ea254e7aab6f3a8b5c936428b67869cef647c5f8e7985877"
      "c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
      "d89e15a34261019eec9072575d8a924185c27d3da64899905f8548cbd9491a36"
      "833ddce3314a4e28411edf3c6efde468f6f2616fc31e17a62587d6a9255f4633"
@@ -546,7 +551,10 @@
 (use-package flycheck
   :ensure t
   :init
-  (global-flycheck-mode))
+  (global-flycheck-mode)
+  :custom
+  (flycheck-check-syntax-automatically '(save idle-change mode-enabled new-line))
+  (flycheck-idle-change-delay 0.5))
 
 ;; ;;<> clj-kondo support for flycheck
 
