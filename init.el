@@ -98,9 +98,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes '(ef-cyprus))
  '(custom-safe-themes
-   '())
+   '("516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
    '(all-the-icons-dired auto-package-update blacken browse-kill-ring
@@ -229,7 +229,7 @@
 	(lsp-clojure-custom-settings 
             '(:dependency-scheme "jar"
               :show-docs-arity-on-same-line? t))
-	:hook ((clojure-mode . lsp)
+   :hook ((clojure-mode . lsp)
 	       (clojurescript-mode . lsp)
                (clojurec-mode . lsp)
                (lisp-mode . lsp)
@@ -440,6 +440,13 @@
   (completion-category-overrides '((file (styles . (partial-completion)))))
   )
 
+(defun my/lsp-mode-setup-completion ()
+  "Use orderless for LSP completion categories."
+  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+        '(orderless)))
+
+(add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
+
 ;;<> Adds annotations
 (use-package marginalia
   :ensure t
@@ -469,18 +476,10 @@
 
 ;;;; --------------------------------------------------------------------------
 ;;; Magit to handle git stuff
-;; (use-package magit
-;;   :ensure t
-;;   :bind
-;;   ("C-x g" . magit-status))
-;; -- Dont auto wrap
 (use-package magit
   :ensure t
   :bind
-  ("C-x g" . magit-status)
-  :hook
-  (git-commit-setup . (lambda ()
-                        (auto-fill-mode -1))))
+  ("C-x g" . magit-status))
 
 ;; <> Syntax aware diffs
 (use-package magit-delta
@@ -811,12 +810,12 @@
 
 
 
-(use-package catppuccin-theme
-  :ensure t
-  :config
-  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-  (setq catppuccin-flavor 'macchiato)
-  (load-theme 'catppuccin t))
+;; (use-package catppuccin-theme
+;;   :ensure t
+;;   :config
+;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+;;   (setq catppuccin-flavor 'macchiato)
+;;   (load-theme 'catppuccin t))
 
 
 
