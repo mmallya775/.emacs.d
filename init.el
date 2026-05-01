@@ -848,7 +848,7 @@
   ;; inline error display
   (setq lsp-ui-sideline-show-diagnostics t
       lsp-ui-sideline-show-hover nil  ;; hover noise gets old fast
-      lsp-ui-sideline-show-code-actions t)
+      lsp-ui-sideline-show-code-actions nil)
   )
 
 (with-eval-after-load 'dap-mode
