@@ -98,9 +98,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(ef-cyprus))
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
-   '("516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
+   '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
+     "10e330880269244ae45ae9e02fe6f55766da9e15036e7c7f07d7ce228195deb5"
+     "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
    '(all-the-icons-dired auto-package-update blacken browse-kill-ring
@@ -832,7 +834,25 @@
   ;; Faster completions
   (setq lsp-idle-delay 0.2
         lsp-rust-analyzer-server-display-inlay-hints t
-        lsp-rust-analyzer-cargo-watch-command "clippy"))
+        lsp-rust-analyzer-cargo-watch-command "clippy")
+  ;; Better rust-analyzer settings
+  (setq lsp-rust-analyzer-display-chaining-hints t
+	lsp-rust-analyzer-display-parameter-hints t
+	lsp-rust-analyzer-display-closure-return-type-hints t
+	lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial"
+	lsp-rust-analyzer-cargo-watch-enable t
+	lsp-rust-analyzer-proc-macro-enable t
+	lsp-rust-analyzer-experimental-proc-attr-macros t
+	lsp-rust-analyzer-import-enforce-granularity t
+	lsp-rust-analyzer-import-prefix "by_self")
+  ;; inline error display
+  (setq lsp-ui-sideline-show-diagnostics t
+      lsp-ui-sideline-show-hover nil  ;; hover noise gets old fast
+      lsp-ui-sideline-show-code-actions t)
+  )
+
+(with-eval-after-load 'dap-mode
+  (require 'dap-cpptools))
 
 ;;--------------------------------------------------------------------
 ;; Highlighting for toml files
@@ -914,29 +934,29 @@
 
 ;; ==========================================================================
 ;;Fira code font
-(set-face-attribute 'default nil
-  :family "FiraCode Nerd Font"
-  :height 120
-  :weight 'medium)
+;; (set-face-attribute 'default nil
+;;   :family "JetBrains Mono"
+;;   :height 120
+;;   :weight 'medium)
 
 
-(use-package ligature
-  :ensure t
-  :config
-  ;; Enable ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode
-    '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-      "{-" "-}" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-      "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-      "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-      ".-" ".." "..." ".?" ".=" ".-" ".*"
-      "\\\\" "\\\\\\" "\\/" "\\/-" "\\->"
-      "/*" "*/" "/**" "//" "///" "//$"
-      "==" "===" "=>" "=>>" "=/=" "=!=" "=>" ">=" ">-" ">=>" ">>" ">>-" ">>=" ">>>"
-      "<$>" "<$" "<$$" "<*" "<*>" "<+>" "<-" "<--" "<->" "<!--" "<-->" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-      "<~" "<~~" "</" "</>" "</" "</>" "<|" "<|>" "<||" "<||>" "<:" "<::" "<:::"
-      "</" "</>" "<!--" "<!" "<-!" "<->" "<-~" "<~" "<~~" "<$" "<$$" "<+>" "<*>"))
-  (global-ligature-mode t))
+;; (use-package ligature
+;;   :ensure t
+;;   :config
+;;   ;; Enable ligatures in programming modes
+;;   (ligature-set-ligatures 'prog-mode
+;;     '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+;;       "{-" "-}" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+;;       "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+;;       "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+;;       ".-" ".." "..." ".?" ".=" ".-" ".*"
+;;       "\\\\" "\\\\\\" "\\/" "\\/-" "\\->"
+;;       "/*" "*/" "/**" "//" "///" "//$"
+;;       "==" "===" "=>" "=>>" "=/=" "=!=" "=>" ">=" ">-" ">=>" ">>" ">>-" ">>=" ">>>"
+;;       "<$>" "<$" "<$$" "<*" "<*>" "<+>" "<-" "<--" "<->" "<!--" "<-->" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+;;       "<~" "<~~" "</" "</>" "</" "</>" "<|" "<|>" "<||" "<||>" "<:" "<::" "<:::"
+;;       "</" "</>" "<!--" "<!" "<-!" "<->" "<-~" "<~" "<~~" "<$" "<$$" "<+>" "<*>"))
+;;   (global-ligature-mode t))
 
 
 ;; === =======
