@@ -98,34 +98,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-enabled-themes '(ef-spring))
  '(custom-safe-themes
-   '("8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
+   '("f0ddff48ec78dec9ac9ea3236e7208ef58a86d445207a674523c0eba8e9743b0"
+     "d10c58f4a53b7d4760022fdf67734865c290e40ef5dfa597a653e14b810a7d07"
+     "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
      "10e330880269244ae45ae9e02fe6f55766da9e15036e7c7f07d7ce228195deb5"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages
-   '(all-the-icons-dired auto-package-update blacken browse-kill-ring
-			 cape catppuccin-theme cider-hydra
-			 clang-format clj-refactor
-			 clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide company-box
-			 company-prescient consult-lsp corfu-terminal
-			 dap-mode dashboard deadgrep direnv docker
-			 docker-compose-mode dockerfile-mode
-			 doom-modeline doom-themes ef-themes
-			 eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck git-gutter-fringe
-			 go-mode kind-icon ligature lsp-pyright lsp-ui
-			 magit-delta magit-todos marginalia
-			 monokai-pro-theme monokai-theme orderless
-			 paren-face py-isort python-docstring pyvenv
-			 rainbow-delimiters rustic smartparens
-			 solarized-theme surround symbol-overlay
-			 toml-mode transpose-frame
-			 treemacs-icons-dired treemacs-magit
-			 treemacs-projectile undo-tree vertico
-			 vterm-toggle yasnippet-snippets))
+ '(package-selected-packages nil)
  '(safe-local-variable-values
    '((eval progn
 	   (make-variable-buffer-local
@@ -1058,6 +1039,20 @@
   (setq lsp-pyright-use-library-code-for-types t))
 
 
+(defhydra hydra-symbol-overlay (:hint nil)
+  "
+^Symbol Overlay^
+----------------------------------------
+  _n_: next    _p_: prev    _q_: quit
+  _h_: highlight  _d_: remove  _c_: clear all
+"
+  ("n" symbol-overlay-jump-next)
+  ("p" symbol-overlay-jump-prev)
+  ("h" symbol-overlay-put)
+  ("d" symbol-overlay-remove)
+  ("c" symbol-overlay-remove-all)
+  ("q" nil :color red))
+
 ;; --- Nice highlighting stuff
 (use-package symbol-overlay
   :ensure t
@@ -1072,7 +1067,8 @@
               ("C-c o c" . symbol-overlay-remove-all)
               ;; navigate between matches
               ("C-c o n" . symbol-overlay-jump-next)
-              ("C-c o p" . symbol-overlay-jump-prev))
+              ("C-c o p" . symbol-overlay-jump-prev)
+	      ("C-c o o" . hydra-symbol-overlay/body))
   :config
   ;; optional: nicer behavior
   (setq symbol-overlay-idle-time 0.3))
