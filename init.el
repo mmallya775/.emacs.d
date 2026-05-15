@@ -98,17 +98,67 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(ef-spring))
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
-   '("f0ddff48ec78dec9ac9ea3236e7208ef58a86d445207a674523c0eba8e9743b0"
+   '("720838034f1dd3b3da66f6bd4d053ee67c93a747b219d1c546c41c4e425daf93"
+     "0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
+     "7771c8496c10162220af0ca7b7e61459cb42d18c35ce272a63461c0fc1336015"
+     "1f292969fc19ba45fbc6542ed54e58ab5ad3dbe41b70d8cb2d1f85c22d07e518"
+     "f0ddff48ec78dec9ac9ea3236e7208ef58a86d445207a674523c0eba8e9743b0"
      "d10c58f4a53b7d4760022fdf67734865c290e40ef5dfa597a653e14b810a7d07"
      "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
      "10e330880269244ae45ae9e02fe6f55766da9e15036e7c7f07d7ce228195deb5"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(all-the-icons-dired auto-package-update blacken browse-kill-ring
+			 cape catppuccin-theme cider-hydra
+			 clang-format clj-refactor
+			 clojure-mode-extra-font-locking
+			 cmake-font-lock cmake-ide consult-lsp
+			 corfu-terminal dap-mode dashboard deadgrep
+			 direnv docker docker-compose-mode
+			 dockerfile-mode doom-modeline doom-themes
+			 ef-themes eval-sexp-fu exec-path-from-shell
+			 expand-region flycheck git-gutter-fringe
+			 go-mode kind-icon lsp-pyright lsp-ui
+			 magit-delta magit-todos marginalia
+			 monokai-pro-theme monokai-theme orderless
+			 paren-face py-isort python-docstring pyvenv
+			 rainbow-delimiters rustic smartparens
+			 surround symbol-overlay toml-mode
+			 transpose-frame treemacs-icons-dired
+			 treemacs-magit treemacs-projectile undo-tree
+			 vertico vterm-toggle yasnippet-snippets))
  '(safe-local-variable-values
-   '((eval progn
+   '((eval define-clojure-indent (l/matcha '(1 (:defn)))
+	   (l/matche '(1 (:defn)))
+	   (p.types/def-abstract-type '(1 (:defn)))
+	   (p.types/defprotocol+ '(1 (:defn)))
+	   (p.types/defrecord+ '(2 nil nil (:defn)))
+	   (p.types/deftype+ '(2 nil nil (:defn)))
+	   (p/def-map-type '(2 nil nil (:defn)))
+	   (p/defprotocol+ '(1 (:defn)))
+	   (p/defrecord+ '(2 nil nil (:defn)))
+	   (p/deftype+ '(2 nil nil (:defn)))
+	   (tools.macro/macrolet '(1 ((:defn)) :form)))
+     (eval put 'mu/defn 'clojure-doc-string-elt 2)
+     (eval put 'mr/def 'clojure-doc-string-elt 2)
+     (eval put 'mi/define-batched-hydration-method
+	   'clojure-doc-string-elt 3)
+     (eval put 'mi/define-simple-hydration-method
+	   'clojure-doc-string-elt 3)
+     (eval put 'methodical/defmulti 'clojure-doc-string-elt 2)
+     (eval put 'methodical/defmethod 'clojure-doc-string-elt 3)
+     (eval put 'p.types/defprotocol+ 'clojure-doc-string-elt 2)
+     (eval put 's/defn 'clojure-doc-string-elt 2)
+     (eval put 'setting/defsetting 'clojure-doc-string-elt 2)
+     (eval put 'defsetting 'clojure-doc-string-elt 2)
+     (eval put 'api.macros/defendpoint 'clojure-doc-string-elt 3)
+     (eval put 'define-premium-feature 'clojure-doc-string-elt 2)
+     (ftf-project-finders ftf-get-top-git-dir)
+     (whitespace-line-column . 118)
+     (eval progn
 	   (make-variable-buffer-local
 	    'cider-jack-in-nrepl-middlewares)
 	   (add-to-list 'cider-jack-in-nrepl-middlewares
@@ -184,7 +234,7 @@
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
 	lsp-enable-on-type-formatting nil
-	lsp-completion-no-cache nil
+	lsp-completion-no-cache t
 	;; lsp-enable-file-watchers t
 	lsp-idle-delay 0.1
 	lsp-headerline-breadcrumb-enable t
@@ -645,14 +695,9 @@
 
 ;;; Themes
 
-(use-package monokai-pro-theme
-  :ensure t)
-
 (use-package doom-themes
   :ensure t)
 
-(use-package monokai-theme
-  :ensure t)
 
 
 ;;;; ---------------------------------------------------------------
