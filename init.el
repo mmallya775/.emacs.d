@@ -74,10 +74,32 @@
 
 
 ;; Use 'exec-path-from-shell' package for reliable path handling on macOS
-(use-package exec-path-from-shell
-  :ensure t
-  :init
-  (exec-path-from-shell-initialize))
+;; (use-package exec-path-from-shell
+;;   :ensure t
+;;   :init
+;;   (setq exec-path-from-shell-variables '("PATH" "MANPATH"))
+;;   (exec-path-from-shell-initialize))
+
+(setq lsp-tramp-shell-executable "/bin/bash")
+(setq tramp-encoding-shell "/bin/bash")
+(setq shell-file-name "/bin/bash")
+(setq explicit-shell-file-name "/bin/bash")
+(setenv "SHELL" "/bin/bash")
+
+(with-eval-after-load 'tramp
+  (setq tramp-encoding-shell "/bin/bash")
+  ;; Don't let TRAMP pick up Mac's zsh path
+  (setq tramp-remote-shell "/bin/bash"))
+
+(with-eval-after-load 'lsp-mode
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-tramp-connection "clojure-lsp")
+    :major-modes '(clojure-mode clojurescript-mode clojurec-mode)
+    :remote? t
+    :priority 10
+    :server-id 'clojure-lsp-remote
+    :multi-root t)))
 
 ;;Disable toolbar on top
 ;; (ns-toggle-toolbar nil)
@@ -98,9 +120,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("720838034f1dd3b3da66f6bd4d053ee67c93a747b219d1c546c41c4e425daf93"
+   '("166a2faa9dc5b5b3359f7a31a09127ebf7a7926562710367086fcc8fc72145da"
+     "615d8f3208b19161ada77e155beaca0678a35abb182ceae87e26660ecbca04d5"
+     "7fea145741b3ca719ae45e6533ad1f49b2a43bf199d9afaee5b6135fd9e6f9b8"
+     "967c23e9ba179b80560774419f081df22e7674aac23c5c550b817e4a1ce7d058"
+     "749a7bb14efeb8b6c9b251c7a771ab7de500b247eb35f69bfccbdfca27e0602c"
+     "6a95b0faf6cee6adfda34cdfadb2fed6f4157a1d49aabef8cc9b94c187d69a1d"
+     "dc8d63cd0514d058bdf34774163709834519350c1a80dc04deaa58085a8810a5"
+     "6965a903ced31bd58caddb7e7035aadc47f8b0a5c57f246b698be2dfdfed2c4e"
+     "720838034f1dd3b3da66f6bd4d053ee67c93a747b219d1c546c41c4e425daf93"
      "0325a6b5eea7e5febae709dab35ec8648908af12cf2d2b569bedc8da0a3a81c1"
      "7771c8496c10162220af0ca7b7e61459cb42d18c35ce272a63461c0fc1336015"
      "1f292969fc19ba45fbc6542ed54e58ab5ad3dbe41b70d8cb2d1f85c22d07e518"
@@ -838,12 +868,12 @@
 
 
 
-;; (use-package catppuccin-theme
-;;   :ensure t
-;;   :config
-;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-;;   (setq catppuccin-flavor 'macchiato)
-;;   (load-theme 'catppuccin t))
+(use-package catppuccin-theme
+  :ensure t
+  :config
+  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'macchiato)
+  (load-theme 'catppuccin t))
 
 
 
@@ -959,11 +989,10 @@
 
 
 ;; ==========================================================================
-;;Fira code font
-;; (set-face-attribute 'default nil
-;;   :family "JetBrains Mono"
-;;   :height 120
-;;   :weight 'medium)
+;; Fira code font
+(set-face-attribute 'default nil
+  :family "Aporetic Serif Mono"
+  :height 120)
 
 
 ;; (use-package ligature
@@ -1224,5 +1253,4 @@
   (recentf-mode 1)
   (setq recentf-max-saved-items 500)
   (setq recentf-max-menu-items 60))
-
 
