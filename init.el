@@ -1,4 +1,4 @@
-;; Emacs setup
+;; Emacs setup  -*- lexical-binding: t; -*-
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -120,7 +120,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-safe-themes
    '("166a2faa9dc5b5b3359f7a31a09127ebf7a7926562710367086fcc8fc72145da"
      "615d8f3208b19161ada77e155beaca0678a35abb182ceae87e26660ecbca04d5"
@@ -145,21 +145,22 @@
 			 cape catppuccin-theme cider-hydra
 			 clang-format clj-refactor
 			 clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide consult-lsp
-			 corfu-terminal dap-mode dashboard deadgrep
-			 direnv docker docker-compose-mode
+			 cmake-font-lock cmake-ide cmake-mode
+			 consult-lsp corfu-terminal dap-mode dashboard
+			 deadgrep direnv docker docker-compose-mode
 			 dockerfile-mode doom-modeline doom-themes
 			 ef-themes eval-sexp-fu exec-path-from-shell
 			 expand-region flycheck git-gutter-fringe
 			 go-mode kind-icon lsp-pyright lsp-ui
 			 magit-delta magit-todos marginalia
-			 monokai-pro-theme monokai-theme orderless
-			 paren-face py-isort python-docstring pyvenv
+			 monokai-pro-theme monokai-theme
+			 multiple-cursors orderless paren-face
+			 py-isort python-docstring pyvenv
 			 rainbow-delimiters rustic smartparens
 			 surround symbol-overlay toml-mode
 			 transpose-frame treemacs-icons-dired
 			 treemacs-magit treemacs-projectile undo-tree
-			 vertico vterm-toggle yasnippet-snippets))
+			 vertico vterm vterm-toggle yasnippet-snippets))
  '(safe-local-variable-values
    '((eval define-clojure-indent (l/matcha '(1 (:defn)))
 	   (l/matche '(1 (:defn)))
@@ -703,9 +704,9 @@
   :ensure t
   :mode ("Dockerfile\\'" . dockerfile-mode))
 
-(use-package docker-compose-mode
-  :ensure t
-  :mode ("docker-compose\\.yml\\'" . docker-compose-mode))
+;; (use-package docker-compose-mode
+;;   :ensure t
+;;   :mode ("docker-compose\\.yml\\'" . docker-compose-mode))
 
 
 (use-package docker
@@ -868,12 +869,12 @@
 
 
 
-(use-package catppuccin-theme
-  :ensure t
-  :config
-  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-  (setq catppuccin-flavor 'macchiato)
-  (load-theme 'catppuccin t))
+;; (use-package catppuccin-theme
+;;   :ensure t
+;;   :config
+;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+;;   (setq catppuccin-flavor 'macchiato)
+;;   (load-theme 'catppuccin t))
 
 
 
