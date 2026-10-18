@@ -41,7 +41,13 @@
 
 ;;-----------------------------------------------------------
 
-
+(use-package exec-path-from-shell
+  :ensure t
+  :demand t
+  :init
+  (setq exec-path-from-shell-arguments '("-l" "-i"))
+  :config
+  (exec-path-from-shell-initialize))
 ;;-------------------------------------------------------------------
 ;;; Emacs customizing
 
@@ -120,9 +126,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(modus-operandi))
+ '(custom-enabled-themes '(ef-light))
  '(custom-safe-themes
-   '("166a2faa9dc5b5b3359f7a31a09127ebf7a7926562710367086fcc8fc72145da"
+   '("eeaa104f99d641c8be210d3555eba029756d5dc7a2f9a342af526045c3a82c60"
+     "acd363510d3e4b638db178783bde3d4492574c0f5c889f845251949f43567d16"
+     "7d9c94cc1edddc6162c89c85bbdeed14e5b93a21ec83a55710d6a501bf295cf7"
+     "7c0179ef765b9bf1d79612235236d29eebcaca9b4a287ff802959ed20db154b6"
+     "05f1ee9db2c66cd715ab6d36ff949386c47dfff91a7df1f203d015b3ea304dbb"
+     "8bffaccb8930a5e9e519485c0ed7e13cf4af4c86cda1e62c6d0bc597329776e9"
+     "166a2faa9dc5b5b3359f7a31a09127ebf7a7926562710367086fcc8fc72145da"
      "615d8f3208b19161ada77e155beaca0678a35abb182ceae87e26660ecbca04d5"
      "7fea145741b3ca719ae45e6533ad1f49b2a43bf199d9afaee5b6135fd9e6f9b8"
      "967c23e9ba179b80560774419f081df22e7674aac23c5c550b817e4a1ce7d058"
@@ -151,11 +163,11 @@
 			 dockerfile-mode doom-modeline doom-themes
 			 ef-themes eval-sexp-fu exec-path-from-shell
 			 expand-region flycheck git-gutter-fringe
-			 go-mode kind-icon lsp-pyright lsp-ui
+			 go-mode jtsx kind-icon lsp-pyright lsp-ui
 			 magit-delta magit-todos marginalia
 			 monokai-pro-theme monokai-theme
 			 multiple-cursors orderless paren-face
-			 py-isort python-docstring pyvenv
+			 prettier py-isort python-docstring pyvenv
 			 rainbow-delimiters rustic smartparens
 			 surround symbol-overlay toml-mode
 			 transpose-frame treemacs-icons-dired
@@ -261,6 +273,7 @@
   ;; set prefix for lsp-mode commands
   (setq lsp-keymap-prefix "C-c l"
 	;; company-minimum-prefix-length 1
+	lsp-headerline-breadcrumb-enable-diagnostics nil
 	lsp-enable-snippet t
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
@@ -293,15 +306,27 @@
 	(lsp-clojure-custom-settings 
             '(:dependency-scheme "jar"
               :show-docs-arity-on-same-line? t))
-   :hook ((clojure-mode . lsp)
-	       (clojurescript-mode . lsp)
-               (clojurec-mode . lsp)
-               (lisp-mode . lsp)
-	       (go-mode . lsp)
-	       (rustic-mode . lsp)
-	       (c-mode . lsp)
-	       (c++-mode . lsp)
-	       (cmake-mode . lsp)))
+  :hook ((clojure-mode . lsp)
+          (clojurescript-mode . lsp)
+          (clojurec-mode . lsp)
+          (lisp-mode . lsp)
+          (go-mode . lsp)
+          (rustic-mode . lsp)
+          (c-mode . lsp)
+          (c++-mode . lsp)
+          (cmake-mode . lsp)
+          (jtsx-jsx-mode . lsp)
+          (jtsx-tsx-mode . lsp)
+          (jtsx-typescript-mode . lsp)))
+   ;; :hook ((clojure-mode . lsp)
+   ;; 	       (clojurescript-mode . lsp)
+   ;;             (clojurec-mode . lsp)
+   ;;             (lisp-mode . lsp)
+   ;; 	       (go-mode . lsp)
+   ;; 	       (rustic-mode . lsp)
+   ;; 	       (c-mode . lsp)
+   ;; 	       (c++-mode . lsp)
+   ;; 	       (cmake-mode . lsp))
 
 ;; Disables the auto namespace so that the lsp takes care of it. Otherwise leading to two
 ;; namespace declarations
@@ -1255,3 +1280,45 @@
   (setq recentf-max-saved-items 500)
   (setq recentf-max-menu-items 60))
 
+
+;; ---------------------------------------------------------------------------
+;; JavaScript / React / JSX / TypeScript / TSX
+;; ---------------------------------------------------------------------------
+
+(use-package jtsx
+  :ensure t
+  :mode (("\\.jsx\\'" . jtsx-jsx-mode)
+         ("\\.tsx\\'" . jtsx-tsx-mode)
+         ("\\.ts\\'" . jtsx-typescript-mode)
+         ("\\.js\\'" . jtsx-jsx-mode))
+  :hook ((jtsx-jsx-mode . hs-minor-mode)
+         (jtsx-tsx-mode . hs-minor-mode)
+         (jtsx-typescript-mode . hs-minor-mode)))
+
+;; TypeScript language server: completion, navigation, diagnostics
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :init (setq lsp-disabled-clients '(ts-ls))
+;;   :commands lsp
+;;   :hook ((jtsx-jsx-mode . lsp)
+;;          (jtsx-tsx-mode . lsp)
+;;          (jtsx-typescript-mode . lsp))
+;;   :custom
+;;   (lsp-completion-provider :capf)
+;;   (lsp-headerline-breadcrumb-enable nil)
+;;   (lsp-modeline-diagnostics-enable t)
+;;   :config
+;;   (setq lsp-idle-delay 0.5))
+
+;; ESLint diagnostics for JavaScript and JSX
+(use-package flycheck
+  :ensure t
+  :config
+  (add-to-list 'flycheck-disabled-checkers 'javascript-jshint))
+
+;; Prettier formatting
+(use-package prettier
+  :ensure t
+  :hook ((jtsx-jsx-mode . prettier-mode)
+         (jtsx-tsx-mode . prettier-mode)
+         (jtsx-typescript-mode . prettier-mode)))
