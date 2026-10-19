@@ -56,8 +56,9 @@
 
 ;;; Fullscreen stuff
 ;; (set-frame-parameter nil 'fullscreen 'fullboth)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; Replace the default-frame-alist line with:
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 
 ;; Prevent Line Wrapping
