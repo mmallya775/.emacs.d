@@ -155,8 +155,8 @@
  '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
    '(all-the-icons-dired auto-package-update blacken browse-kill-ring
-			 cape catppuccin-theme cider-hydra
-			 clang-format clj-refactor
+			 cape catppuccin-theme cider-eval-sexp-fu
+			 cider-hydra clang-format clj-refactor
 			 clojure-mode-extra-font-locking
 			 cmake-font-lock cmake-ide cmake-mode
 			 consult-lsp corfu-terminal dap-mode dashboard
@@ -247,7 +247,9 @@
 ;;<> Better sexp evals
 
 (use-package eval-sexp-fu
-  :ensure t)
+  :ensure t
+  :custom
+  (eval-sexp-fu-flash-duration 0.5))
 
 ;;<> Extra font locking
 (use-package clojure-mode-extra-font-locking
@@ -816,8 +818,13 @@
     ("q" nil :color red)))
 
 (use-package cider-hydra
-  :after cider
-  :ensure t)
+  :ensure t
+  :hook (clojure-mode . cider-hydra-mode))
+
+;; Flash the evaluated form (eval-sexp-fu alone doesn't hook into CIDER evals)
+(use-package cider-eval-sexp-fu
+  :ensure t
+  :after (cider eval-sexp-fu))
 
 
 
