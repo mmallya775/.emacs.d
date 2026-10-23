@@ -290,7 +290,7 @@
 	lsp-completion-enable-additional-text-edit t
         lsp-enable-completion-at-point t)
   :config
-  (setq gc-cons-threshold (* 300 1024 1024)
+  (setq gc-cons-threshold (* 100 1024 1024)
                 read-process-output-max (* 1024 1024))
 
   (define-key lsp-mode-map (kbd "C-c l r") #'lsp-workspace-restart)
@@ -1330,3 +1330,35 @@
   :hook ((jtsx-jsx-mode . prettier-mode)
          (jtsx-tsx-mode . prettier-mode)
          (jtsx-typescript-mode . prettier-mode)))
+
+;; ---------------------------------------------------------------
+;; Clojure completion: clojure-lsp only, dabbrev merged in
+
+(with-eval-after-load 'lsp-mode
+  (advice-add #'lsp-completion-at-point :around #'cape-wrap-buster))
+
+(add-hook 'cider-mode-hook
+          (lambda ()
+            (remove-hook 'completion-at-point-functions
+                         #'cider-complete-at-point t)))
+
+(defun my/corfu-sort-dabbrev-last (cands)
+  "Keep lsp candidates first (in their incoming order), everything else after."
+  (let (lsp other)
+    (dolist (c cands)
+      (if (get-text-property 0 'lsp-completion-item c)
+          (push c lsp)
+        (push c other)))
+    (nconc (nreverse lsp) (nreverse other))))
+
+(defun my/clojure-capf ()
+  (setq-local completion-at-point-functions
+              (list (cape-capf-super #'lsp-completion-at-point
+                                     #'cape-dabbrev)
+                    #'cape-file))
+  (setq-local corfu-sort-override-function #'my/corfu-sort-dabbrev-last))
+
+(add-hook 'lsp-completion-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'clojure-mode)
+              (my/clojure-capf))))
