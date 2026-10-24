@@ -1,5 +1,15 @@
 ;; Emacs setup  -*- lexical-binding: t; -*-
 
+;; Must come before lsp-mode is loaded or compiled
+(setenv "LSP_USE_PLISTS" "true")
+
+;; Raise GC threshold during startup, then drop it back down
+(setq gc-cons-threshold (* 100 1024 1024)
+      read-process-output-max (* 1024 1024))
+
+;; Hide the toolbar before the first frame is drawn
+(push '(tool-bar-lines . 0) default-frame-alist)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
@@ -127,9 +137,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(ef-light))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("eeaa104f99d641c8be210d3555eba029756d5dc7a2f9a342af526045c3a82c60"
+   '("01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
+     "d97ac0baa0b67be4f7523795621ea5096939a47e8b46378f79e78846e0e4ad3d"
+     "be551d30fbecf76a401a021d5161f7d1b0c9153eb6c9ab8e3d40564ce649315f"
+     "2b0fcc7cc9be4c09ec5c75405260a85e41691abb1ee28d29fcd5521e4fca575b"
+     "1d18bef9d0e1b7f30a3290c48fdc52465bdca62564e404c1019bb1fcc8cb0c27"
+     "eeaa104f99d641c8be210d3555eba029756d5dc7a2f9a342af526045c3a82c60"
      "acd363510d3e4b638db178783bde3d4492574c0f5c889f845251949f43567d16"
      "7d9c94cc1edddc6162c89c85bbdeed14e5b93a21ec83a55710d6a501bf295cf7"
      "7c0179ef765b9bf1d79612235236d29eebcaca9b4a287ff802959ed20db154b6"
@@ -152,7 +167,6 @@
      "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
      "10e330880269244ae45ae9e02fe6f55766da9e15036e7c7f07d7ce228195deb5"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
- '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
    '(all-the-icons-dired auto-package-update blacken browse-kill-ring
 			 cape catppuccin-theme cider-eval-sexp-fu
@@ -164,16 +178,17 @@
 			 dockerfile-mode doom-modeline doom-themes
 			 ef-themes eval-sexp-fu exec-path-from-shell
 			 expand-region flycheck git-gutter-fringe
-			 go-mode jtsx kind-icon lsp-pyright lsp-ui
-			 magit-delta magit-todos marginalia
-			 monokai-pro-theme monokai-theme
+			 go-mode jtsx kind-icon lsp-mode lsp-pyright
+			 lsp-treemacs lsp-ui magit-delta magit-todos
+			 marginalia monokai-pro-theme monokai-theme
 			 multiple-cursors orderless paren-face
 			 prettier py-isort python-docstring pyvenv
 			 rainbow-delimiters rustic smartparens
-			 surround symbol-overlay toml-mode
-			 transpose-frame treemacs-icons-dired
-			 treemacs-magit treemacs-projectile undo-tree
-			 vertico vterm vterm-toggle yasnippet-snippets))
+			 solarized-theme spacemacs-theme surround
+			 symbol-overlay toml-mode transpose-frame
+			 treemacs-icons-dired treemacs-magit
+			 treemacs-projectile undo-tree vertico vterm
+			 vterm-toggle yasnippet-snippets))
  '(safe-local-variable-values
    '((eval define-clojure-indent (l/matcha '(1 (:defn)))
 	   (l/matche '(1 (:defn)))
@@ -901,13 +916,18 @@
   (require 'smartparens-config))
 
 
-
-;; (use-package catppuccin-theme
+;; (use-package spacemacs-theme
 ;;   :ensure t
-;;   :config
-;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-;;   (setq catppuccin-flavor 'macchiato)
-;;   (load-theme 'catppuccin t))
+;;   :defer t
+;;   :init (load-theme 'spacemacs-dark t))
+
+
+(use-package catppuccin-theme
+  :ensure t
+  :config
+  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'mocha)
+  (load-theme 'catppuccin t))
 
 
 
@@ -937,8 +957,8 @@
 	lsp-rust-analyzer-import-prefix "by_self")
   ;; inline error display
   (setq lsp-ui-sideline-show-diagnostics t
-      lsp-ui-sideline-show-hover nil  ;; hover noise gets old fast
-      lsp-ui-sideline-show-code-actions nil)
+	lsp-ui-sideline-show-hover nil ;; hover noise gets old fast
+	lsp-ui-sideline-show-code-actions nil)
   )
 
 (with-eval-after-load 'dap-mode
