@@ -248,8 +248,9 @@
 
 (use-package clojure-mode
   :ensure t
+  :mode ("\\.bb\\'" . clojure-mode)
+  :interpreter ("bb" . clojure-mode)
   :init
-  ;; Disable auto ns template insertion (clojure-lsp will handle it)
   (setq clojure-insert-namespace-template nil)
   :config
   (define-clojure-indent
