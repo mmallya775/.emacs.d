@@ -178,12 +178,12 @@
 			 dockerfile-mode doom-modeline doom-themes
 			 ef-themes eval-sexp-fu exec-path-from-shell
 			 expand-region flycheck git-gutter-fringe
-			 go-mode jtsx kind-icon lsp-mode lsp-pyright
-			 lsp-treemacs lsp-ui magit-delta magit-todos
-			 marginalia monokai-pro-theme monokai-theme
-			 multiple-cursors orderless paren-face
-			 prettier py-isort python-docstring pyvenv
-			 rainbow-delimiters rustic smartparens
+			 go-mode jtsx kind-icon ligature lsp-mode
+			 lsp-pyright lsp-treemacs lsp-ui magit-delta
+			 magit-todos marginalia monokai-pro-theme
+			 monokai-theme multiple-cursors orderless
+			 paren-face prettier py-isort python-docstring
+			 pyvenv rainbow-delimiters rustic smartparens
 			 solarized-theme spacemacs-theme surround
 			 symbol-overlay toml-mode transpose-frame
 			 treemacs-icons-dired treemacs-magit
@@ -296,8 +296,7 @@
 	lsp-enable-snippet t
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
-	lsp-enable-on-type-formatting nil
-	lsp-completion-no-cache t
+	lsp-completion-no-cache nil
 	;; lsp-enable-file-watchers t
 	lsp-idle-delay 0.1
 	lsp-headerline-breadcrumb-enable t
@@ -454,23 +453,39 @@
   :ensure t
   :custom
   (corfu-auto t)                    ;; auto popup
-  (corfu-auto-delay 0.1)            ;; slight delay to avoid jitter while typing
-  (corfu-auto-prefix 1)             ;; start completing after 1 char
+  (corfu-auto-delay 0.15)           ;; [CHANGED] was 0.1
+  (corfu-auto-prefix 2)             ;; [CHANGED] was 1 (popup after every single char was noisy)
   (corfu-cycle t)                   ;; wrap around candidates
   (corfu-preselect 'prompt)         ;; don't auto-select first candidate
   (corfu-quit-no-match 'separator)  ;; quit if no match
   (corfu-scroll-margin 3)
   :bind (:map corfu-map
-              ("C-n"   . corfu-next)
-              ("C-p"   . corfu-previous)
-              ("<tab>" . corfu-insert)
-              ("C-g"   . corfu-quit)
-              ("M-d"   . corfu-show-documentation))
+              ("C-n"       . corfu-next)
+              ("C-p"       . corfu-previous)
+              ;; [CHANGED] "tab-and-go": TAB/S-TAB cycle candidates, RET inserts,
+              ;; or just keep typing to accept the selected one.
+              ;; Was: ("<tab>" . corfu-insert), which quit when nothing was selected.
+              ("TAB"       . corfu-next)
+              ([tab]       . corfu-next)
+              ("S-TAB"     . corfu-previous)
+              ([backtab]   . corfu-previous)
+              ("C-g"       . corfu-quit))
+              ;; [REMOVED] ("M-d" . corfu-show-documentation)
+              ;; That command no longer exists. M-d now falls through to
+              ;; corfu-popupinfo-toggle (from corfu-popupinfo-mode).
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode)
+  (corfu-history-mode)
   :config
   (setq corfu-popupinfo-delay '(0.5 . 0.2)))
+
+(use-package savehist
+  :ensure nil
+  :init
+  (savehist-mode)
+  :config
+  (add-to-list 'savehist-additional-variables 'corfu-history))
 
 ;; Corfu in terminal (if you ever use Emacs -nw)
 (use-package corfu-terminal
@@ -548,13 +563,6 @@
   (completion-category-overrides '((file (styles . (partial-completion)))))
   )
 
-(defun my/lsp-mode-setup-completion ()
-  "Use orderless for LSP completion categories."
-  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-        '(orderless)))
-
-(add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
-
 ;;<> Adds annotations
 (use-package marginalia
   :ensure t
@@ -571,16 +579,8 @@
    ("C-x C-b" . consult-buffer)
    ("C-c s r" . consult-ripgrep)
    ("M-i" . consult-imenu)
-   ("M-I" . consult-imenu-multi))
-  :init
-  ;; Set up Consult to use the Vertico preview feature.
-  (setq completion-in-region-function
-        #'consult-completion-in-region))
+   ("M-I" . consult-imenu-multi)))
 
-;;<> Consult-lsp
-;; (use-package consult-lsp
-;;   :ensure t
-;;   :after (consult lsp-mode)) ;; references at point
 
 ;;;; --------------------------------------------------------------------------
 ;;; Magit to handle git stuff
@@ -1022,7 +1022,9 @@
 (use-package clang-format
   :ensure t
   :bind (("C-c C-f" . clang-format-buffer)
-         ("C-c f" . clang-format-region))
+         ;; [CHANGED] was "C-c f", which silently overwrote your
+         ;; my/clojure-lsp-format binding. Now on capital F.
+         ("C-c F" . clang-format-region))
   :hook ((c-mode c++-mode) . (lambda ()
                                (add-hook 'before-save-hook
                                          'clang-format-buffer nil t))))
@@ -1050,23 +1052,23 @@
   :height 120)
 
 
-;; (use-package ligature
-;;   :ensure t
-;;   :config
-;;   ;; Enable ligatures in programming modes
-;;   (ligature-set-ligatures 'prog-mode
-;;     '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
-;;       "{-" "-}" "::" ":::" ":=" "!!" "!=" "!==" "-}"
-;;       "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
-;;       "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
-;;       ".-" ".." "..." ".?" ".=" ".-" ".*"
-;;       "\\\\" "\\\\\\" "\\/" "\\/-" "\\->"
-;;       "/*" "*/" "/**" "//" "///" "//$"
-;;       "==" "===" "=>" "=>>" "=/=" "=!=" "=>" ">=" ">-" ">=>" ">>" ">>-" ">>=" ">>>"
-;;       "<$>" "<$" "<$$" "<*" "<*>" "<+>" "<-" "<--" "<->" "<!--" "<-->" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
-;;       "<~" "<~~" "</" "</>" "</" "</>" "<|" "<|>" "<||" "<||>" "<:" "<::" "<:::"
-;;       "</" "</>" "<!--" "<!" "<-!" "<->" "<-~" "<~" "<~~" "<$" "<$$" "<+>" "<*>"))
-;;   (global-ligature-mode t))
+(use-package ligature
+  :ensure t
+  :config
+  ;; Enable ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode
+    '("www" "**" "***" "**/" "*>" "*/" "\\\\" "\\\\\\"
+      "{-" "-}" "::" ":::" ":=" "!!" "!=" "!==" "-}"
+      "--" "---" "-->" "->" "->>" "-<" "-<<" "-~"
+      "#{" "#[" "##" "###" "####" "#(" "#?" "#_" "#_("
+      ".-" ".." "..." ".?" ".=" ".-" ".*"
+      "\\\\" "\\\\\\" "\\/" "\\/-" "\\->"
+      "/*" "*/" "/**" "//" "///" "//$"
+      "==" "===" "=>" "=>>" "=/=" "=!=" "=>" ">=" ">-" ">=>" ">>" ">>-" ">>=" ">>>"
+      "<$>" "<$" "<$$" "<*" "<*>" "<+>" "<-" "<--" "<->" "<!--" "<-->" "<=" "<==" "<=>" "<=<" "<>" "<<" "<<-" "<<=" "<<<"
+      "<~" "<~~" "</" "</>" "</" "</>" "<|" "<|>" "<||" "<||>" "<:" "<::" "<:::"
+      "</" "</>" "<!--" "<!" "<-!" "<->" "<-~" "<~" "<~~" "<$" "<$$" "<+>" "<*>"))
+  (global-ligature-mode t))
 
 
 ;; === =======
@@ -1377,9 +1379,26 @@
               (list (cape-capf-super #'lsp-completion-at-point
                                      #'cape-dabbrev)
                     #'cape-file))
+  ;; Note: this override bypasses Corfu's sorting, so corfu-history
+  ;; ranking does not apply in Clojure buffers (it still does elsewhere).
   (setq-local corfu-sort-override-function #'my/corfu-sort-dabbrev-last))
 
-(add-hook 'lsp-completion-mode-hook
-          (lambda ()
-            (when (derived-mode-p 'clojure-mode)
-              (my/clojure-capf))))
+;; [REMOVED] old hook, now handled inside my/lsp-mode-setup-completion below:
+;; (add-hook 'lsp-completion-mode-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'clojure-mode)
+;;               (my/clojure-capf))))
+
+
+(defun my/orderless-flex-first (_pattern index _total)
+  (and (eq index 0) 'orderless-flex))
+
+
+(defun my/lsp-mode-setup-completion ()
+  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+        '(orderless))
+  (add-hook 'orderless-style-dispatchers #'my/orderless-flex-first nil 'local)
+  (when (derived-mode-p 'clojure-mode)   ; covers clojurescript/clojurec too
+    (my/clojure-capf)))
+
+(add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
