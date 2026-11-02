@@ -137,7 +137,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes '(ef-light))
  '(custom-safe-themes
    '("01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
      "d97ac0baa0b67be4f7523795621ea5096939a47e8b46378f79e78846e0e4ad3d"
@@ -293,7 +293,8 @@
   (setq lsp-keymap-prefix "C-c l"
 	;; company-minimum-prefix-length 1
 	lsp-headerline-breadcrumb-enable-diagnostics nil
-	lsp-enable-snippet t
+	lsp-headerline-breadcrumb-icons-enable nil
+	lsp-enable-snippet nil
 	lsp-enable-indentation t
 	lsp-file-watch-threshold 5000
 	lsp-completion-no-cache nil
@@ -923,12 +924,12 @@
 ;;   :init (load-theme 'spacemacs-dark t))
 
 
-(use-package catppuccin-theme
-  :ensure t
-  :config
-  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-  (setq catppuccin-flavor 'mocha)
-  (load-theme 'catppuccin t))
+;; (use-package catppuccin-theme
+;;   :ensure t
+;;   :config
+;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+;;   (setq catppuccin-flavor 'mocha)
+;;   (load-theme 'catppuccin t))
 
 
 
@@ -942,6 +943,7 @@
   (setq rustic-lsp-client 'lsp)
   ;; Format on save
   (setq rustic-format-on-save t)
+  (setq lsp-inlay-hints-enable t)
   ;; Faster completions
   (setq lsp-idle-delay 0.2
         lsp-rust-analyzer-server-display-inlay-hints t
@@ -1049,7 +1051,7 @@
 ;; Fira code font
 (set-face-attribute 'default nil
   :family "Aporetic Serif Mono"
-  :height 120)
+  :height 140)
 
 
 (use-package ligature
@@ -1111,12 +1113,12 @@
 
 
 ;; Nice python stuff
-(use-package lsp-pyright
-  :ensure t
-  :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :custom (lsp-pyright-langserver-command "pyright") ;; or basedpyright
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-pyright)
+;;                           (lsp))))  ; or lsp-deferred
 
 
 
@@ -1402,3 +1404,4 @@
     (my/clojure-capf)))
 
 (add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
+
