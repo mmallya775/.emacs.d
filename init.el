@@ -7,6 +7,9 @@
 (setq gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024))
 
+;; TODO: Make something that is not using hardcoded sdkman path
+(setenv "JAVA_HOME" (expand-file-name "~/.sdkman/candidates/java/current"))
+
 ;; Hide the toolbar before the first frame is drawn
 (push '(tool-bar-lines . 0) default-frame-alist)
 
@@ -168,27 +171,27 @@
      "10e330880269244ae45ae9e02fe6f55766da9e15036e7c7f07d7ce228195deb5"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
  '(package-selected-packages
-   '(all-the-icons-dired auto-package-update blacken browse-kill-ring
-			 cape catppuccin-theme cider-eval-sexp-fu
-			 cider-hydra clang-format clj-refactor
-			 clojure-mode-extra-font-locking
-			 cmake-font-lock cmake-ide cmake-mode
-			 consult-lsp corfu-terminal dap-mode dashboard
-			 deadgrep direnv docker docker-compose-mode
-			 dockerfile-mode doom-modeline doom-themes
-			 ef-themes eval-sexp-fu exec-path-from-shell
-			 expand-region flycheck git-gutter-fringe
-			 go-mode jtsx kind-icon ligature lsp-mode
-			 lsp-pyright lsp-treemacs lsp-ui magit-delta
-			 magit-todos marginalia monokai-pro-theme
-			 monokai-theme multiple-cursors orderless
-			 paren-face prettier py-isort python-docstring
-			 pyvenv rainbow-delimiters rustic smartparens
-			 solarized-theme spacemacs-theme surround
-			 symbol-overlay toml-mode transpose-frame
-			 treemacs-icons-dired treemacs-magit
-			 treemacs-projectile undo-tree vertico vterm
-			 vterm-toggle yasnippet-snippets))
+   '(all-the-icons all-the-icons-dired auto-package-update blacken
+		   browse-kill-ring cape catppuccin-theme cider
+		   cider-eval-sexp-fu cider-hydra clang-format
+		   clj-refactor clojure-mode-extra-font-locking
+		   cmake-font-lock cmake-ide cmake-mode consult
+		   consult-lsp corfu corfu-terminal dap-mode dashboard
+		   deadgrep direnv docker docker-compose-mode
+		   dockerfile-mode doom-modeline doom-themes ef-themes
+		   eval-sexp-fu exec-path-from-shell expand-region
+		   flycheck git-gutter git-gutter-fringe go-mode jtsx
+		   kind-icon ligature lsp-mode lsp-pyright
+		   lsp-treemacs lsp-ui magit magit-delta magit-todos
+		   marginalia monokai-pro-theme monokai-theme
+		   multiple-cursors orderless paren-face prettier
+		   projectile py-isort python-docstring pyvenv
+		   rainbow-delimiters rustic smartparens
+		   solarized-theme spacemacs-theme surround
+		   symbol-overlay toml-mode transpose-frame
+		   treemacs-icons-dired treemacs-magit
+		   treemacs-projectile undo-tree vertico vterm
+		   vterm-toggle yasnippet-snippets))
  '(safe-local-variable-values
    '((eval define-clojure-indent (l/matcha '(1 (:defn)))
 	   (l/matche '(1 (:defn)))
