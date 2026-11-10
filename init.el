@@ -142,7 +142,17 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(ef-light))
  '(custom-safe-themes
-   '("01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
+   '("088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
+     "c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
+     "19d62171e83f2d4d6f7c31fc0a6f437e8cec4543234f0548bad5d49be8e344cd"
+     "93011fe35859772a6766df8a4be817add8bfe105246173206478a0706f88b33d"
+     "e8bd9bbf6506afca133125b0be48b1f033b1c8647c628652ab7a2fe065c10ef0"
+     "bb18b6d5982beeb76a37ced9211e972f84e8e76af9579456aa8cef794ae0bcb9"
+     "b8719ba8ddfa912c98d876d5cc530c13bd6589e34b617093848e492aabe2a2dd"
+     "2dd2fe7575d76094652d9e04de604db1cd1cdf1582e1494bc646b2a6e402afb0"
+     "e0fbe5caa6e602975e59cdd381c9773a670a864dd7bb7bf2345414856148098b"
+     "4f1641913dd7705f03f5b3271a570d5b4289bdd974665b8919164f2e43799fbd"
+     "01f347a923dd21661412d4c5a7c7655bf17fb311b57ddbdbd6fce87bd7e58de6"
      "d97ac0baa0b67be4f7523795621ea5096939a47e8b46378f79e78846e0e4ad3d"
      "be551d30fbecf76a401a021d5161f7d1b0c9153eb6c9ab8e3d40564ce649315f"
      "2b0fcc7cc9be4c09ec5c75405260a85e41691abb1ee28d29fcd5521e4fca575b"
@@ -170,6 +180,7 @@
      "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
      "10e330880269244ae45ae9e02fe6f55766da9e15036e7c7f07d7ce228195deb5"
      "516ec39655c85f346393f5d93e0f03602b6bfc33335bf2fd673016c9c4cdc69e"))
+ '(lsp-go-use-placeholders t nil nil "Customized with use-package lsp-mode")
  '(package-selected-packages
    '(all-the-icons all-the-icons-dired auto-package-update blacken
 		   browse-kill-ring cape catppuccin-theme cider
@@ -727,22 +738,69 @@
 ;; -------------------------------------------------------------------
 ;; A better dashboard for emacs
 
+;; (use-package dashboard
+;;   :ensure t
+;;   :after all-the-icons
+;;   :config
+;;   (dashboard-setup-startup-hook)
+;;   (setq dashboard-items '((recents  . 5)
+;;                            (projects . 5)
+;;                            (bookmarks . 5)
+;; 			   (agenda . 5)))
+;;   (setq dashboard-startup-banner 'logo)
+;;   (setq dashboard-center-content t)
+;;   (setq dashboard-vertically-center-content t)
+;;   (setq dashboard-icon-type 'nerd-icons)
+;;   (setq dashboard-set-heading-icons t)
+;;   (setq dashboard-set-file-icons t)
+;;   (setq dashboard-show-shortcuts t))
 (use-package dashboard
   :ensure t
-  :after all-the-icons
+  :after nerd-icons
+  :init
+  (setq dashboard-startup-banner 'logo            ; or your image path
+        dashboard-banner-logo-title "Welcome to Emacs!"
+        dashboard-center-content t
+        dashboard-vertically-center-content t
+        dashboard-items '((projects . 10)
+                          (recents  . 6))
+        dashboard-projects-backend 'projectile
+        dashboard-display-icons-p t
+        dashboard-icon-type 'nerd-icons
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-show-shortcuts t
+        dashboard-set-init-info t                 ; "N packages loaded in X seconds"
+        dashboard-set-footer t
+        dashboard-footer-icon (nerd-icons-sucicon "nf-custom-emacs"
+                                                  :face 'font-lock-keyword-face))
+
+  ;; Order of the sections on the page
+  (setq dashboard-startupify-list
+        '(dashboard-insert-banner
+          dashboard-insert-newline
+          dashboard-insert-banner-title
+          dashboard-insert-newline
+          dashboard-insert-navigator
+          dashboard-insert-newline
+          dashboard-insert-init-info
+          dashboard-insert-items
+          dashboard-insert-newline
+          dashboard-insert-footer))
+
+  ;; The [Homepage] [Update] [Restart] row
+  (setq dashboard-navigator-buttons
+        `(((,(nerd-icons-mdicon "nf-md-github" :height 1.1)
+            "Homepage" "Open the dashboard homepage"
+            (lambda (&rest _) (browse-url "https://github.com/emacs-dashboard/dashboard")))
+           (,(nerd-icons-mdicon "nf-md-update" :height 1.1)
+            "Update" "Update packages"
+            (lambda (&rest _) (auto-package-update-now)))
+           (,(nerd-icons-mdicon "nf-md-restart" :height 1.1)
+            "Restart" "Restart Emacs"
+            (lambda (&rest _) (restart-emacs))))))
   :config
-  (dashboard-setup-startup-hook)
-  (setq dashboard-items '((recents  . 5)
-                           (projects . 5)
-                           (bookmarks . 5)
-			   (agenda . 5)))
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-center-content t)
-  (setq dashboard-vertically-center-content t)
-  (setq dashboard-icon-type 'nerd-icons)
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-show-shortcuts t))
+  (dashboard-setup-startup-hook))
 
 
 ;;; --------------------------------------------------------------------
@@ -1408,3 +1466,31 @@
 
 (add-hook 'lsp-completion-mode-hook #'my/lsp-mode-setup-completion)
 
+(add-hook 'org-mode-hook
+          (lambda () (setq-local corfu-auto nil)))
+
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory (file-truename "~/RoamNotes"))
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+	 :map org-mode-map
+	 ("C-M-i" . completion-at-point)
+	 :map org-roam-dailies-map
+	 ("Y" . org-roam-dailies-capture-yesterday)
+	 ("T" . org-roam-dailies-capture-tomorrow))
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
+  :config
+  ;; Show tags in the node-find list
+  (setq org-roam-node-display-template
+        (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (require 'org-roam-dailies)
+  (org-roam-db-autosync-mode))
+
+(provide 'init)
+;;; init.el ends here
