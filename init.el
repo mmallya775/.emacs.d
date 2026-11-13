@@ -142,7 +142,9 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(ef-light))
  '(custom-safe-themes
-   '("088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
+   '("374ba7157893123caaf89df302153ce57c16e4ad4b51f127b9306b80560a6a2d"
+     "5e2b82d4d3c794cdc1d46fe2a6ca54efed4df7caaefa3e80d6f566a9a24bc881"
+     "088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
      "c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
      "19d62171e83f2d4d6f7c31fc0a6f437e8cec4543234f0548bad5d49be8e344cd"
      "93011fe35859772a6766df8a4be817add8bfe105246173206478a0706f88b33d"
@@ -195,9 +197,9 @@
 		   kind-icon ligature lsp-mode lsp-pyright
 		   lsp-treemacs lsp-ui magit magit-delta magit-todos
 		   marginalia monokai-pro-theme monokai-theme
-		   multiple-cursors orderless paren-face prettier
-		   projectile py-isort python-docstring pyvenv
-		   rainbow-delimiters rustic smartparens
+		   multiple-cursors orderless org-roam paren-face
+		   prettier projectile py-isort python-docstring
+		   pyvenv rainbow-delimiters rustic smartparens
 		   solarized-theme spacemacs-theme surround
 		   symbol-overlay toml-mode transpose-frame
 		   treemacs-icons-dired treemacs-magit
@@ -1437,13 +1439,20 @@
         (push c other)))
     (nconc (nreverse lsp) (nreverse other))))
 
+;; (defun my/clojure-capf ()
+;;   (setq-local completion-at-point-functions
+;;               (list (cape-capf-super #'lsp-completion-at-point
+;;                                      #'cape-dabbrev)
+;;                     #'cape-file))
+;;   ;; Note: this override bypasses Corfu's sorting, so corfu-history
+;;   ;; ranking does not apply in Clojure buffers (it still does elsewhere).
+;;   (setq-local corfu-sort-override-function #'my/corfu-sort-dabbrev-last))
 (defun my/clojure-capf ()
   (setq-local completion-at-point-functions
               (list (cape-capf-super #'lsp-completion-at-point
+                                     #'cider-complete-at-point
                                      #'cape-dabbrev)
                     #'cape-file))
-  ;; Note: this override bypasses Corfu's sorting, so corfu-history
-  ;; ranking does not apply in Clojure buffers (it still does elsewhere).
   (setq-local corfu-sort-override-function #'my/corfu-sort-dabbrev-last))
 
 ;; [REMOVED] old hook, now handled inside my/lsp-mode-setup-completion below:
