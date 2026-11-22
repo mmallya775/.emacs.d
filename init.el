@@ -140,11 +140,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(ef-light))
+ '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("374ba7157893123caaf89df302153ce57c16e4ad4b51f127b9306b80560a6a2d"
-     "5e2b82d4d3c794cdc1d46fe2a6ca54efed4df7caaefa3e80d6f566a9a24bc881"
-     "088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
+   '("088cd6f894494ac3d4ff67b794467c2aa1e3713453805b93a8bcb2d72a0d1b53"
      "c9d837f562685309358d8dc7fccb371ed507c0ae19cf3c9ae67875db0c038632"
      "19d62171e83f2d4d6f7c31fc0a6f437e8cec4543234f0548bad5d49be8e344cd"
      "93011fe35859772a6766df8a4be817add8bfe105246173206478a0706f88b33d"
@@ -187,24 +185,25 @@
    '(all-the-icons all-the-icons-dired auto-package-update blacken
 		   browse-kill-ring cape catppuccin-theme cider
 		   cider-eval-sexp-fu cider-hydra clang-format
-		   clj-refactor clojure-mode-extra-font-locking
-		   cmake-font-lock cmake-ide cmake-mode consult
-		   consult-lsp corfu corfu-terminal dap-mode dashboard
-		   deadgrep direnv docker docker-compose-mode
-		   dockerfile-mode doom-modeline doom-themes ef-themes
-		   eval-sexp-fu exec-path-from-shell expand-region
-		   flycheck git-gutter git-gutter-fringe go-mode jtsx
-		   kind-icon ligature lsp-mode lsp-pyright
-		   lsp-treemacs lsp-ui magit magit-delta magit-todos
-		   marginalia monokai-pro-theme monokai-theme
-		   multiple-cursors orderless org-roam paren-face
-		   prettier projectile py-isort python-docstring
-		   pyvenv rainbow-delimiters rustic smartparens
+		   clj-refactor clojure-mode
+		   clojure-mode-extra-font-locking cmake-font-lock
+		   cmake-ide cmake-mode consult consult-lsp corfu
+		   corfu-terminal dap-mode dashboard deadgrep direnv
+		   docker docker-compose-mode dockerfile-mode
+		   doom-modeline doom-themes ef-themes eval-sexp-fu
+		   exec-path-from-shell expand-region flycheck
+		   git-gutter git-gutter-fringe go-mode jtsx kind-icon
+		   ligature lsp-mode lsp-pyright lsp-treemacs lsp-ui
+		   magit magit-delta magit-todos marginalia
+		   monokai-pro-theme monokai-theme multiple-cursors
+		   orderless org-roam paredit paren-face prettier
+		   projectile py-isort python-docstring pyvenv
+		   rainbow-delimiters rustic smartparens
 		   solarized-theme spacemacs-theme surround
-		   symbol-overlay toml-mode transpose-frame
+		   symbol-overlay toml-mode transpose-frame treemacs
 		   treemacs-icons-dired treemacs-magit
 		   treemacs-projectile undo-tree vertico vterm
-		   vterm-toggle yasnippet-snippets))
+		   vterm-toggle yasnippet yasnippet-snippets))
  '(safe-local-variable-values
    '((eval define-clojure-indent (l/matcha '(1 (:defn)))
 	   (l/matche '(1 (:defn)))
@@ -837,8 +836,6 @@
 (use-package doom-themes
   :ensure t)
 
-
-
 ;;;; ---------------------------------------------------------------
 ;; Autoupdate packages
 
@@ -987,12 +984,12 @@
 ;;   :init (load-theme 'spacemacs-dark t))
 
 
-;; (use-package catppuccin-theme
-;;   :ensure t
-;;   :config
-;;   ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
-;;   (setq catppuccin-flavor 'mocha)
-;;   (load-theme 'catppuccin t))
+(use-package catppuccin-theme
+  :ensure t
+  :config
+  ;; Choose one of the available flavors: 'latte, 'frappe, 'macchiato, or 'mocha
+  (setq catppuccin-flavor 'mocha)
+  (load-theme 'catppuccin t))
 
 
 
@@ -1114,7 +1111,7 @@
 ;; Fira code font
 (set-face-attribute 'default nil
   :family "Aporetic Serif Mono"
-  :height 140)
+  :height 120)
 
 
 (use-package ligature
